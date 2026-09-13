@@ -252,7 +252,7 @@ function Accueil() {
         </section>
 
         {/* Prochain match & matchs à venir — mis en avant */}
-        <section id="avenir" className="border-b border-border bg-primary-deep">
+        <section id="avenir" className="border-b border-border bg-background">
           <div className="mx-auto max-w-6xl px-4 py-16">
             <div className="mb-8 flex items-center gap-3">
               <span className="h-0.5 w-8 bg-accent" />
