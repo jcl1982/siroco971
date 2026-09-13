@@ -481,36 +481,6 @@ function Accueil() {
           </div>
         </section>
 
-        {/* Actualités */}
-        <section id="actualites" className="border-b border-border bg-secondary py-20">
-          <div className="mx-auto max-w-6xl px-4">
-            <h2 className="section-title text-3xl text-primary sm:text-4xl">Actualités</h2>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {actus.map((a) => (
-                <article key={a.titre} className="overflow-hidden rounded-sm border border-border bg-card">
-                  <img
-                    src={a.image}
-                    alt={a.titre}
-                    loading="lazy"
-                    width={1024}
-                    height={768}
-                    className="h-52 w-full object-cover"
-                  />
-                  <div className="p-6">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-accent-foreground">
-                      {a.date}
-                    </p>
-                    <h3 className="mt-2 font-display text-lg font-bold uppercase leading-snug text-foreground">
-                      {a.titre}
-                    </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">{a.texte}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Nous rejoindre */}
         <section id="rejoindre" className="bg-primary py-20">
           <div className="mx-auto max-w-6xl px-4">
