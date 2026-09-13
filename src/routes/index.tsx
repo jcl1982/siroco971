@@ -27,10 +27,11 @@ export const Route = createFileRoute("/")({
 });
 
 const nav = [
+  { href: "#avenir", label: "Matchs à venir" },
+  { href: "#actualites", label: "Actualités" },
   { href: "#club", label: "Le club" },
   { href: "#equipes", label: "Équipes" },
   { href: "#calendrier", label: "Calendrier" },
-  { href: "#actualites", label: "Actualités" },
   { href: "#rejoindre", label: "Nous rejoindre" },
   { href: "#contact", label: "Contact" },
 ];
