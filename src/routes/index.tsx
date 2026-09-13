@@ -87,6 +87,8 @@ const actus = [
 
 function Accueil() {
   const [menuOuvert, setMenuOuvert] = useState(false);
+  const prochain = matchs[0]!;
+  const suivants = matchs.slice(1);
 
   return (
     <div className="min-h-screen bg-background">
