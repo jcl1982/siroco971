@@ -397,9 +397,9 @@ function Accueil() {
               </div>
               <div className="grid grid-cols-2 gap-4 self-start">
                 {chiffres.map((c) => (
-                  <div key={c.label} className="rounded-sm bg-primary px-5 py-7 text-center">
-                    <p className="font-display text-4xl font-black text-primary-foreground">{c.valeur}</p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-primary-foreground/80">
+                  <div key={c.label} className="rounded-sm border border-border border-l-4 border-l-accent bg-card px-5 py-7 text-center">
+                    <p className="font-display text-4xl font-black text-primary">{c.valeur}</p>
+                    <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
                       {c.label}
                     </p>
                   </div>
