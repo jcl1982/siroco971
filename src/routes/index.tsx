@@ -148,45 +148,103 @@ function Accueil() {
       </header>
 
       <main id="accueil">
-        {/* Bandeau d'accueil */}
-        <section className="relative">
+        {/* Bandeau d'accueil — NFL Impact Broadcast */}
+        <section className="relative flex min-h-[38rem] flex-col justify-end overflow-hidden bg-primary-deep md:min-h-[42rem]">
           <img
             src={heroMatch}
             alt="Match de football du Siroco des Abymes au coucher du soleil"
             width={1920}
             height={1200}
-            className="h-[32rem] w-full object-cover md:h-[38rem]"
+            className="absolute inset-0 h-full w-full object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-primary-deep/75" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="mx-auto w-full max-w-6xl px-4">
-              <div className="max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary-foreground/80">
-                  Les Abymes · Guadeloupe · Depuis 1962
-                </p>
-                <h1 className="mt-4 font-display text-4xl font-black uppercase leading-[0.95] text-primary-foreground sm:text-6xl">
-                  Siroco des Abymes
-                </h1>
-                <p className="mt-5 max-w-xl text-base text-primary-foreground/90 sm:text-lg">
-                  Un club de quartier, une famille de passionnés. Du premier ballon de l'école de foot
-                  jusqu'aux soirées de championnat, on joue ensemble, on gagne ensemble.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href="#rejoindre"
-                    className="rounded-sm bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
-                  >
-                    Nous rejoindre
-                  </a>
-                  <a
-                    href="#calendrier"
-                    className="rounded-sm border-2 border-primary-foreground/60 px-6 py-3 text-sm font-bold uppercase tracking-wide text-primary-foreground transition-colors hover:bg-primary-foreground/10"
-                  >
-                    Voir le calendrier
-                  </a>
-                </div>
-              </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-deep via-primary-deep/70 to-transparent" />
+          {/* Texture broadcast */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-15"
+            style={{
+              background:
+                "linear-gradient(transparent 50%, rgba(0,0,0,0.5) 50%), linear-gradient(90deg, rgba(255,0,0,0.05), rgba(0,255,0,0.02), rgba(0,0,255,0.05))",
+              backgroundSize: "100% 4px, 3px 100%",
+            }}
+          />
+
+          {/* Marque en haut */}
+          <div className="absolute left-6 right-6 top-24 z-20 flex items-start justify-between md:left-12 md:right-12">
+            <div className="h-16 w-16 rounded-full border-2 border-accent bg-background p-1 md:h-20 md:w-20">
+              <img
+                src={logoAsset.url}
+                alt="Logo du Siroco des Abymes"
+                className="h-full w-full rounded-full object-contain"
+              />
             </div>
+            <span className="-skew-x-12 bg-accent px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.25em] text-accent-foreground">
+              <span className="block skew-x-12">Saison 2026</span>
+            </span>
+          </div>
+
+          {/* Contenu principal */}
+          <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 md:px-12 md:pb-20">
+            <div className="mb-3 flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-accent" />
+              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary-foreground">
+                Les Abymes · Guadeloupe · Depuis 1962
+              </span>
+            </div>
+
+            <div className="relative mb-8">
+              <span
+                aria-hidden
+                className="absolute -left-4 -top-10 select-none font-[family-name:var(--font-impact)] text-8xl uppercase italic leading-none text-primary-foreground/5 md:text-[10rem]"
+              >
+                Siroco
+              </span>
+              <h1 className="font-[family-name:var(--font-impact)] text-6xl uppercase italic leading-[0.9] tracking-tighter text-primary-foreground drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)] sm:text-8xl md:text-9xl">
+                Siroco
+                <br />
+                <span className="text-accent">des Abymes</span>
+              </h1>
+            </div>
+
+            <p className="mb-10 max-w-md border-l-4 border-accent pl-5 text-base font-medium leading-snug text-primary-foreground/90 sm:text-lg">
+              L'élite du football guadeloupéen. Forgés dans l'effort, unis pour la victoire.
+            </p>
+
+            <div className="flex max-w-xl flex-col gap-4 sm:flex-row">
+              <a
+                href="#rejoindre"
+                className="group flex flex-1 -skew-x-12 items-center justify-center bg-primary-foreground py-4 transition-colors hover:bg-accent"
+              >
+                <span className="flex skew-x-12 items-center gap-2 font-[family-name:var(--font-impact)] text-xl uppercase text-primary-deep">
+                  Nous rejoindre
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </a>
+              <a
+                href="#calendrier"
+                className="flex flex-1 -skew-x-12 items-center justify-center border-2 border-primary-foreground/30 bg-primary-deep/40 py-4 backdrop-blur-sm transition-colors hover:bg-primary-foreground/10"
+              >
+                <span className="skew-x-12 font-[family-name:var(--font-impact)] text-xl uppercase text-primary-foreground">
+                  Voir le calendrier
+                </span>
+              </a>
+            </div>
+          </div>
+
+          {/* Bandeau bas */}
+          <div className="absolute bottom-0 left-0 z-10 flex h-1.5 w-full">
+            <span className="h-full flex-1 bg-accent" />
+            <span className="h-full flex-1 bg-primary-foreground" />
+            <span className="h-full flex-1 bg-primary" />
           </div>
         </section>
 
