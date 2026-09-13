@@ -484,7 +484,7 @@ function Accueil() {
         </section>
 
         {/* Nous rejoindre */}
-        <section id="rejoindre" className="bg-primary py-20">
+        <section id="rejoindre" className="bg-foreground py-20">
           <div className="mx-auto max-w-6xl px-4">
             <div className="grid gap-10 lg:grid-cols-2">
               <div>
