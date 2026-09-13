@@ -313,7 +313,7 @@ function Accueil() {
                   À suivre
                 </h3>
                 <ul className="mt-5 space-y-5">
-                  {matchs.slice(1).map((m) => (
+                  {suivants.map((m) => (
                     <li key={m.date} className="border-l-2 border-accent/60 pl-4">
                       <p className="text-[11px] font-black uppercase tracking-wide text-accent">
                         {m.date}
