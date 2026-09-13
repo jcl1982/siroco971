@@ -552,7 +552,7 @@ function Accueil() {
         </section>
       </main>
 
-      <footer className="border-t border-border bg-primary-deep py-10">
+      <footer className="border-t border-border bg-foreground py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo du Siroco des Abymes" className="h-10 w-10 object-contain" />
