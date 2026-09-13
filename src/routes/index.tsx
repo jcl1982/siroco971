@@ -249,6 +249,123 @@ function Accueil() {
           </div>
         </section>
 
+        {/* Prochain match & matchs à venir — mis en avant */}
+        <section id="avenir" className="border-b border-border bg-primary-deep">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <div className="mb-8 flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-accent" />
+              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-accent">
+                Matchs à venir
+              </span>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+              {/* Prochain match — bloc vedette */}
+              <article className="relative overflow-hidden rounded-sm border-2 border-accent bg-primary p-8 md:p-10">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-8 -top-12 select-none font-[family-name:var(--font-impact)] text-[8rem] uppercase italic leading-none text-primary-foreground/5"
+                >
+                  VS
+                </div>
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-accent">
+                  Prochain match · {matchs[0].competition}
+                </p>
+                <p className="mt-3 font-[family-name:var(--font-impact)] text-2xl uppercase italic text-primary-foreground/80">
+                  {matchs[0].date}
+                </p>
+                <div className="mt-6 flex items-center gap-4">
+                  <div className="flex-1 text-right">
+                    <p className="font-[family-name:var(--font-impact)] text-3xl uppercase italic leading-none text-primary-foreground sm:text-4xl">
+                      Siroco
+                    </p>
+                    <p className="mt-1 text-[11px] uppercase tracking-wide text-primary-foreground/60">
+                      Les Abymes
+                    </p>
+                  </div>
+                  <span className="font-[family-name:var(--font-impact)] text-3xl italic text-accent sm:text-4xl">
+                    VS
+                  </span>
+                  <div className="flex-1">
+                    <p className="font-[family-name:var(--font-impact)] text-3xl uppercase italic leading-none text-primary-foreground sm:text-4xl">
+                      {matchs[0].adversaire}
+                    </p>
+                    <p className="mt-1 text-[11px] uppercase tracking-wide text-primary-foreground/60">
+                      {matchs[0].lieu}
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="#calendrier"
+                  className="mt-8 inline-flex -skew-x-12 bg-accent px-6 py-3 transition-opacity hover:opacity-90"
+                >
+                  <span className="skew-x-12 font-[family-name:var(--font-impact)] text-sm uppercase tracking-wide text-accent-foreground">
+                    Voir le calendrier
+                  </span>
+                </a>
+              </article>
+
+              {/* Autres matchs à venir */}
+              <div className="rounded-sm border border-primary-foreground/15 bg-primary/40 p-6">
+                <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-primary-foreground/70">
+                  À suivre
+                </h3>
+                <ul className="mt-5 space-y-5">
+                  {matchs.slice(1).map((m) => (
+                    <li key={m.date} className="border-l-2 border-accent/60 pl-4">
+                      <p className="text-[11px] font-black uppercase tracking-wide text-accent">
+                        {m.date}
+                      </p>
+                      <p className="mt-1 font-[family-name:var(--font-impact)] text-lg uppercase italic text-primary-foreground">
+                        {m.adversaire}
+                      </p>
+                      <p className="text-xs uppercase tracking-wide text-primary-foreground/60">
+                        {m.lieu} · {m.competition}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Actualités — mise en avant */}
+        <section id="actualites" className="border-b border-border bg-secondary py-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="mb-8 flex items-center gap-3">
+              <span className="h-0.5 w-8 bg-accent" />
+              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-accent">
+                Dernières actus
+              </span>
+            </div>
+            <h2 className="section-title text-3xl text-primary sm:text-4xl">Actualités</h2>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {actus.map((a) => (
+                <article key={a.titre} className="overflow-hidden rounded-sm border border-border bg-card transition-shadow hover:shadow-lg">
+                  <img
+                    src={a.image}
+                    alt={a.titre}
+                    loading="lazy"
+                    width={1024}
+                    height={768}
+                    className="h-52 w-full object-cover"
+                  />
+                  <div className="p-6">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-accent-foreground">
+                      {a.date}
+                    </p>
+                    <h3 className="mt-2 font-display text-lg font-bold uppercase leading-snug text-foreground">
+                      {a.titre}
+                    </h3>
+                    <p className="mt-3 text-sm text-muted-foreground">{a.texte}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Le club */}
         <section id="club" className="crescent-bg border-b border-border py-20">
           <div className="mx-auto max-w-6xl px-4">
