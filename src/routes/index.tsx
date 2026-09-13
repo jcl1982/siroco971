@@ -252,7 +252,7 @@ function Accueil() {
         </section>
 
         {/* Prochain match & matchs à venir — mis en avant */}
-        <section id="avenir" className="border-b border-border bg-primary-deep">
+        <section id="avenir" className="border-b border-border bg-background">
           <div className="mx-auto max-w-6xl px-4 py-16">
             <div className="mb-8 flex items-center gap-3">
               <span className="h-0.5 w-8 bg-accent" />
@@ -308,8 +308,8 @@ function Accueil() {
               </article>
 
               {/* Autres matchs à venir */}
-              <div className="rounded-sm border border-primary-foreground/15 bg-primary/40 p-6">
-                <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-primary-foreground/70">
+              <div className="rounded-sm border border-border bg-muted p-6">
+                <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   À suivre
                 </h3>
                 <ul className="mt-5 space-y-5">
@@ -318,10 +318,10 @@ function Accueil() {
                       <p className="text-[11px] font-black uppercase tracking-wide text-accent">
                         {m.date}
                       </p>
-                      <p className="mt-1 font-[family-name:var(--font-impact)] text-lg uppercase italic text-primary-foreground">
+                      <p className="mt-1 font-[family-name:var(--font-impact)] text-lg uppercase italic text-foreground">
                         {m.adversaire}
                       </p>
-                      <p className="text-xs uppercase tracking-wide text-primary-foreground/60">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground">
                         {m.lieu} · {m.competition}
                       </p>
                     </li>
@@ -397,9 +397,9 @@ function Accueil() {
               </div>
               <div className="grid grid-cols-2 gap-4 self-start">
                 {chiffres.map((c) => (
-                  <div key={c.label} className="rounded-sm bg-primary px-5 py-7 text-center">
-                    <p className="font-display text-4xl font-black text-primary-foreground">{c.valeur}</p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-primary-foreground/80">
+                  <div key={c.label} className="rounded-sm border border-border border-l-4 border-l-accent bg-card px-5 py-7 text-center">
+                    <p className="font-display text-4xl font-black text-primary">{c.valeur}</p>
+                    <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
                       {c.label}
                     </p>
                   </div>
@@ -484,7 +484,7 @@ function Accueil() {
         </section>
 
         {/* Nous rejoindre */}
-        <section id="rejoindre" className="bg-primary py-20">
+        <section id="rejoindre" className="bg-foreground py-20">
           <div className="mx-auto max-w-6xl px-4">
             <div className="grid gap-10 lg:grid-cols-2">
               <div>
@@ -552,7 +552,7 @@ function Accueil() {
         </section>
       </main>
 
-      <footer className="border-t border-border bg-primary-deep py-10">
+      <footer className="border-t border-border bg-foreground py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo du Siroco des Abymes" className="h-10 w-10 object-contain" />
