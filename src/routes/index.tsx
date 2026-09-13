@@ -308,8 +308,8 @@ function Accueil() {
               </article>
 
               {/* Autres matchs à venir */}
-              <div className="rounded-sm border border-primary-foreground/15 bg-primary/40 p-6">
-                <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-primary-foreground/70">
+              <div className="rounded-sm border border-border bg-muted p-6">
+                <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground">
                   À suivre
                 </h3>
                 <ul className="mt-5 space-y-5">
@@ -318,10 +318,10 @@ function Accueil() {
                       <p className="text-[11px] font-black uppercase tracking-wide text-accent">
                         {m.date}
                       </p>
-                      <p className="mt-1 font-[family-name:var(--font-impact)] text-lg uppercase italic text-primary-foreground">
+                      <p className="mt-1 font-[family-name:var(--font-impact)] text-lg uppercase italic text-foreground">
                         {m.adversaire}
                       </p>
-                      <p className="text-xs uppercase tracking-wide text-primary-foreground/60">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground">
                         {m.lieu} · {m.competition}
                       </p>
                     </li>
