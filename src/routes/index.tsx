@@ -269,10 +269,10 @@ function Accueil() {
                   VS
                 </div>
                 <p className="text-xs font-black uppercase tracking-[0.25em] text-accent">
-                  Prochain match · {matchs[0].competition}
+                  Prochain match · {prochain.competition}
                 </p>
                 <p className="mt-3 font-[family-name:var(--font-impact)] text-2xl uppercase italic text-primary-foreground/80">
-                  {matchs[0].date}
+                  {prochain.date}
                 </p>
                 <div className="mt-6 flex items-center gap-4">
                   <div className="flex-1 text-right">
@@ -288,10 +288,10 @@ function Accueil() {
                   </span>
                   <div className="flex-1">
                     <p className="font-[family-name:var(--font-impact)] text-3xl uppercase italic leading-none text-primary-foreground sm:text-4xl">
-                      {matchs[0].adversaire}
+                      {prochain.adversaire}
                     </p>
                     <p className="mt-1 text-[11px] uppercase tracking-wide text-primary-foreground/60">
-                      {matchs[0].lieu}
+                      {prochain.lieu}
                     </p>
                   </div>
                 </div>
