@@ -33,6 +33,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-impact: "Oswald", "Archivo", ui-sans-serif, sans-serif;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
 }
 
