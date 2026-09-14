@@ -6,7 +6,7 @@ import newsSupporters from "@/assets/news-supporters.jpg";
 import newsTeam from "@/assets/news-team.jpg";
 
 export const Route = createFileRoute("/actualites")({
-  validateSearch: (search: Record<string, unknown>) => ({ q: typeof search["q"] === "string" ? search["q"] : "" }),
+  validateSearch: (search: Record<string, unknown>) => ({ q: typeof search["q"] === "string" ? search["q"] : undefined }) as { q?: string },
   head: () => ({
     meta: [
       { title: "Actualités du club — Siroco Abymes" },
@@ -29,7 +29,7 @@ const actualitesDefaut = [
 ];
 
 function PageActualites() {
-  const { q } = Route.useSearch();
+  const { q = "" } = Route.useSearch();
   const { data } = useActualites();
   const source = (data ?? []).length ? data! : actualitesDefaut;
   const recherche = q.trim().toLowerCase();
