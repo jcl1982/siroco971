@@ -22,9 +22,11 @@ export const Route = createFileRoute("/auth")({
   }),
 });
 
+type Mode = "connexion" | "inscription" | "oubli";
+
 function PageAuth() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"connexion" | "inscription">("connexion");
+  const [mode, setMode] = useState<Mode>("connexion");
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [message, setMessage] = useState<string | null>(null);
@@ -34,6 +36,16 @@ function PageAuth() {
     event.preventDefault();
     setChargement(true);
     setMessage(null);
+    if (mode === "oubli") {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      setChargement(false);
+      if (error) return setMessage("Envoi impossible : " + error.message);
+      setMessage("Un lien de réinitialisation a été envoyé à votre adresse email. Vérifiez votre boîte de réception.");
+      setMode("connexion");
+      return;
+    }
     if (mode === "connexion") {
       const { error } = await supabase.auth.signInWithPassword({ email, password: motDePasse });
       setChargement(false);
@@ -68,7 +80,9 @@ function PageAuth() {
           <img src={logoAsset.url} alt="Logo du Siroco des Abymes" className="h-14 w-14 object-contain" />
           <div>
             <h1 className="font-impact text-2xl uppercase leading-none">Espace membre</h1>
-            <p className="text-xs text-muted-foreground">Administration du site</p>
+            <p className="text-xs text-muted-foreground">
+              {mode === "oubli" ? "Réinitialisation du mot de passe" : "Administration du site"}
+            </p>
           </div>
         </div>
 
@@ -77,28 +91,62 @@ function PageAuth() {
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
-          <div className="grid gap-1.5">
-            <Label htmlFor="mdp">Mot de passe</Label>
-            <Input id="mdp" type="password" required minLength={6} value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} />
-          </div>
+          {mode !== "oubli" && (
+            <div className="grid gap-1.5">
+              <Label htmlFor="mdp">Mot de passe</Label>
+              <Input
+                id="mdp"
+                type="password"
+                required={mode !== "oubli"}
+                minLength={6}
+                value={motDePasse}
+                onChange={(e) => setMotDePasse(e.target.value)}
+              />
+            </div>
+          )}
           <Button type="submit" className="btn-3d h-11 rounded-md uppercase" disabled={chargement}>
-            {mode === "connexion" ? "Se connecter" : "Créer le compte"}
+            {mode === "connexion" && "Se connecter"}
+            {mode === "inscription" && "Créer le compte"}
+            {mode === "oubli" && "Envoyer le lien de réinitialisation"}
           </Button>
         </form>
 
-        <Button variant="outline" className="mt-3 h-11 w-full rounded-md" onClick={google}>
-          Continuer avec Google
-        </Button>
+        {mode === "connexion" && (
+          <>
+            <Button variant="outline" className="mt-3 h-11 w-full rounded-md" onClick={google}>
+              Continuer avec Google
+            </Button>
+            <button
+              type="button"
+              className="mt-4 w-full text-xs text-muted-foreground hover:text-primary"
+              onClick={() => { setMode("oubli"); setMessage(null); }}
+            >
+              Mot de passe oublié&nbsp;?
+            </button>
+          </>
+        )}
+
+        {mode === "oubli" && (
+          <button
+            type="button"
+            className="mt-4 w-full text-xs text-primary underline"
+            onClick={() => { setMode("connexion"); setMessage(null); }}
+          >
+            Retour à la connexion
+          </button>
+        )}
 
         {message && <p className="mt-4 text-sm text-muted-foreground">{message}</p>}
 
-        <button
-          type="button"
-          className="mt-5 w-full text-xs text-primary underline"
-          onClick={() => setMode(mode === "connexion" ? "inscription" : "connexion")}
-        >
-          {mode === "connexion" ? "Créer le premier compte administrateur" : "J’ai déjà un compte"}
-        </button>
+        {(mode === "connexion" || mode === "inscription") && (
+          <button
+            type="button"
+            className="mt-5 w-full text-xs text-primary underline"
+            onClick={() => setMode(mode === "connexion" ? "inscription" : "connexion")}
+          >
+            {mode === "connexion" ? "Créer le premier compte administrateur" : "J’ai déjà un compte"}
+          </button>
+        )}
       </div>
     </main>
   );
