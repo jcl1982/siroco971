@@ -295,7 +295,7 @@ function OngletActualites() {
               <Champ label="Titre" value={String(b["title"] ?? "")} onChange={(v) => maj("title", v)} />
               <Champ label="Catégorie" value={String(b["category"] ?? "")} onChange={(v) => maj("category", v)} />
               <Champ label="Date (AAAA-MM-JJ)" value={String(b["published_on"] ?? "")} onChange={(v) => maj("published_on", v)} />
-              <Champ label="Adresse de l’image" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Image de l’actualité" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <div className="sm:col-span-2">
                 <Champ label="Résumé" multiligne value={String(b["excerpt"] ?? "")} onChange={(v) => maj("excerpt", v)} />
               </div>
