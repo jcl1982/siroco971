@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { X } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Film, X } from "lucide-react";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
-import { useGalerie } from "@/lib/site-content";
+import { formatDateFr, useGalerie, useMatchs } from "@/lib/site-content";
 import heroMatch from "@/assets/hero-match.jpg";
 import newsAcademy from "@/assets/news-academy.jpg";
 import newsSupporters from "@/assets/news-supporters.jpg";
@@ -12,9 +12,9 @@ export const Route = createFileRoute("/medias")({
   head: () => ({
     meta: [
       { title: "Photos & vidéos — Siroco Abymes" },
-      { name: "description", content: "La galerie du Siroco des Abymes : photos des matchs, de l’école de foot et de la vie du club." },
+      { name: "description", content: "La galerie du Siroco des Abymes : photos des matchs, de l’école de foot et vidéos des rencontres de la saison." },
       { property: "og:title", content: "Photos & vidéos — Siroco Abymes" },
-      { property: "og:description", content: "Revivez les moments forts du Siroco des Abymes en images." },
+      { property: "og:description", content: "Revivez les moments forts du Siroco des Abymes en images et en vidéos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -22,14 +22,21 @@ export const Route = createFileRoute("/medias")({
   component: PageMedias,
 });
 
-const galerieDefaut = [heroMatch, newsTeam, newsAcademy, newsSupporters, heroMatch, newsTeam];
+const galerieDefaut = [
+  { url: heroMatch, legende: "Coup d’envoi au Stade Municipal des Abymes" },
+  { url: newsTeam, legende: "L’équipe première avant la rencontre" },
+  { url: newsAcademy, legende: "Séance de l’école de football" },
+  { url: newsSupporters, legende: "Les supporters du Siroco en tribune" },
+];
 
 function PageMedias() {
   const [onglet, setOnglet] = useState<"photos" | "videos">("photos");
   const [agrandie, setAgrandie] = useState<string | null>(null);
   const { data } = useGalerie();
-  const photos = (data ?? []).filter((photo) => photo.image_url).map((photo) => photo.image_url);
+  const { data: matchs } = useMatchs();
+  const photos = (data ?? []).filter((photo) => photo.image_url).map((photo) => ({ url: photo.image_url, legende: photo.caption }));
   const liste = photos.length ? photos : galerieDefaut;
+  const videos = (matchs ?? []).filter((match) => match.video_url);
 
   return (
     <SiteShell>
@@ -46,13 +53,29 @@ function PageMedias() {
         {onglet === "photos" ? (
           <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
             {liste.map((image, index) => (
-              <button key={`${image}-${index}`} type="button" onClick={() => setAgrandie(image)} className="overflow-hidden rounded-xl">
-                <img src={image} alt={`Galerie Siroco ${index + 1}`} loading="lazy" className="aspect-[1.45/1] h-full w-full object-cover transition-transform hover:scale-105" />
-              </button>
+              <figure key={`${image.url}-${index}`}>
+                <button type="button" onClick={() => setAgrandie(image.url)} className="block w-full overflow-hidden rounded-xl">
+                  <img src={image.url} alt={image.legende || `Galerie Siroco ${index + 1}`} loading="lazy" className="aspect-[1.45/1] h-full w-full object-cover transition-transform hover:scale-105" />
+                </button>
+                {image.legende && <figcaption className="mt-2 text-[11px] text-muted-foreground">{image.legende}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        ) : videos.length ? (
+          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {videos.map((match) => (
+              <Link key={match.id} to="/match/$id" params={{ id: match.id }} className="rounded-xl border border-border bg-secondary/40 p-5 hover:border-primary">
+                <Film className="h-6 w-6 text-primary" />
+                <h3 className="mt-3 font-impact text-lg uppercase">{match.home_team} vs {match.away_team}</h3>
+                <p className="text-[11px] text-muted-foreground">{match.competition} {match.matchday} · {formatDateFr(match.kickoff)}</p>
+                <span className="mt-3 inline-block text-[10px] font-black uppercase text-primary">Voir la vidéo →</span>
+              </Link>
             ))}
           </div>
         ) : (
-          <p className="mt-6 text-sm text-muted-foreground">Les vidéos du club arrivent bientôt. En attendant, retrouvez nos images ci-dessus et suivez-nous sur les réseaux.</p>
+          <p className="mt-6 text-sm text-muted-foreground">
+            Les vidéos des rencontres sont publiées sur les fiches de match. Aucune vidéo n’est disponible pour le moment.
+          </p>
         )}
       </section>
 
