@@ -126,8 +126,8 @@ function Accueil() {
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <div className="bg-foreground text-primary-foreground">
         <div className="mx-auto flex h-9 max-w-[1440px] items-center justify-between px-5 text-[10px]">
-          <div className="flex items-center gap-5"><span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" />Les Abymes, Guadeloupe</span><span className="hidden border-l border-primary-foreground/30 pl-5 sm:block">Plus qu’un club, une famille</span></div>
-          <div className="flex h-full items-center gap-3"><Facebook className="hidden h-3.5 w-3.5 sm:block" /><Instagram className="hidden h-3.5 w-3.5 sm:block" /><Youtube className="hidden h-4 w-4 sm:block" /><Search className="h-3.5 w-3.5" /><a href="#contact" className="flex h-full items-center gap-2 bg-primary px-3 font-bold uppercase shadow-md sm:px-4"><UserRound className="h-3.5 w-3.5" />Espace membre</a></div>
+          <div className="flex items-center gap-5"><span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" />{reglages["topbar_location"]}</span><span className="hidden border-l border-primary-foreground/30 pl-5 sm:block">{reglages["topbar_slogan"]}</span></div>
+          <div className="flex h-full items-center gap-3"><a href={reglages["social_facebook"] || "#contact"} aria-label="Facebook"><Facebook className="hidden h-3.5 w-3.5 sm:block" /></a><a href={reglages["social_instagram"] || "#contact"} aria-label="Instagram"><Instagram className="hidden h-3.5 w-3.5 sm:block" /></a><a href={reglages["social_youtube"] || "#contact"} aria-label="YouTube"><Youtube className="hidden h-4 w-4 sm:block" /></a><Search className="h-3.5 w-3.5" /><a href="/auth" className="flex h-full items-center gap-2 bg-primary px-3 font-bold uppercase shadow-md sm:px-4"><UserRound className="h-3.5 w-3.5" />Espace membre</a></div>
         </div>
       </div>
 
@@ -135,7 +135,7 @@ function Accueil() {
         <div className="mx-auto flex h-[84px] max-w-[1440px] items-center px-5">
           <a href="#accueil" className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo du Siroco des Abymes" className="h-[68px] w-[68px] object-contain" />
-            <div className="leading-none"><strong className="block font-impact text-[2rem] font-bold uppercase text-primary">Siroco</strong><span className="block text-center text-[9px] font-black uppercase tracking-[0.28em]">Abymes</span><span className="block text-center text-[6px] font-bold uppercase tracking-[0.22em] text-muted-foreground">Depuis 1979</span></div>
+            <div className="leading-none"><strong className="block font-impact text-[2rem] font-bold uppercase text-primary">{reglages["club_name"]}</strong><span className="block text-center text-[9px] font-black uppercase tracking-[0.28em]">{reglages["club_city"]}</span><span className="block text-center text-[6px] font-bold uppercase tracking-[0.22em] text-muted-foreground">{reglages["club_since"]}</span></div>
           </a>
           <nav className="ml-auto hidden items-center gap-8 lg:flex">{navigation.map(([href, label], index) => <a key={href} href={href} className={`flex items-center gap-1 border-b-2 py-8 text-[11px] font-black uppercase transition-colors hover:text-primary ${index === 0 ? "border-primary text-primary" : "border-transparent"}`}>{label}{[1,2,5].includes(index) && <ChevronDown className="h-3 w-3" />}</a>)}</nav>
           <Button variant="ghost" size="icon" className="ml-auto lg:hidden" onClick={() => setMenuOuvert((value) => !value)} aria-label={menuOuvert ? "Fermer le menu" : "Ouvrir le menu"}>{menuOuvert ? <X /> : <Menu />}</Button>
