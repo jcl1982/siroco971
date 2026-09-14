@@ -176,22 +176,22 @@ function Accueil() {
                     <span className="h-7 w-1.5 rounded-sm bg-primary" />
                     <h2 className="font-impact text-2xl font-bold uppercase tracking-tight">Prochain match</h2>
                   </div>
-                  <p className="mt-5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-primary">Championnat régional — Journée 3</p>
+                  <p className="mt-5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-primary">{prochainMatch?.competition ?? "Championnat régional — Journée 3"}</p>
                   <div className="my-7 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
                     <div>
                       <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-background p-2 shadow-[0_8px_18px_-8px_rgba(0,0,0,0.6)]"><img src={logoAsset.url} alt="Siroco Abymes" className="h-full w-full object-contain" /></div>
-                      <p className="mt-3 text-xs font-black uppercase leading-tight">Siroco<br />Abymes</p>
+                      <p className="mt-3 text-xs font-black uppercase leading-tight">{prochainMatch?.home_team ?? "Siroco Abymes"}</p>
                     </div>
                     <span className="font-impact text-3xl font-bold uppercase">VS</span>
                     <div>
-                      <div className="mx-auto grid h-24 w-24 place-items-center rounded-[46%_46%_46%_46%/38%_38%_62%_62%] border-2 border-primary-foreground/80 bg-[linear-gradient(160deg,#c62828,#7f1414)] font-impact text-lg font-bold tracking-wide shadow-[0_8px_18px_-8px_rgba(0,0,0,0.6)]">ASR</div>
-                      <p className="mt-3 text-xs font-black uppercase leading-tight">A.S. Rivière-Salée</p>
+                      <div className="mx-auto grid h-24 w-24 place-items-center rounded-[46%_46%_46%_46%/38%_38%_62%_62%] border-2 border-primary-foreground/80 bg-[linear-gradient(160deg,#c62828,#7f1414)] font-impact text-lg font-bold tracking-wide shadow-[0_8px_18px_-8px_rgba(0,0,0,0.6)]">{(prochainMatch?.away_team ?? "A.S. Rivière-Salée").split(/[\s.-]+/).filter(Boolean).map((mot) => mot[0]).join("").slice(0, 3).toUpperCase()}</div>
+                      <p className="mt-3 text-xs font-black uppercase leading-tight">{prochainMatch?.away_team ?? "A.S. Rivière-Salée"}</p>
                     </div>
                   </div>
                   <div className="space-y-3 border-t border-primary-foreground/15 pt-5 text-[13px]">
-                    <p className="flex items-center gap-3"><CalendarDays className="h-4 w-4 text-primary-foreground/80" />Samedi 20 septembre 2025</p>
-                    <p className="flex items-center gap-3"><Clock3 className="h-4 w-4 text-primary-foreground/80" />16h00</p>
-                    <p className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary-foreground/80" />Stade Municipal des Abymes</p>
+                    <p className="flex items-center gap-3"><CalendarDays className="h-4 w-4 text-primary-foreground/80" />{prochainMatch ? formatDateFr(prochainMatch.kickoff) : "Samedi 20 septembre 2025"}</p>
+                    <p className="flex items-center gap-3"><Clock3 className="h-4 w-4 text-primary-foreground/80" />{prochainMatch ? formatHeureFr(prochainMatch.kickoff) : "16h00"}</p>
+                    <p className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary-foreground/80" />{prochainMatch?.venue || "Stade Municipal des Abymes"}</p>
                   </div>
                   <Button asChild className="btn-3d mt-6 h-12 w-full rounded-full text-xs font-black uppercase tracking-[0.14em]"><a href="#calendrier">Voir le calendrier <ArrowRight /></a></Button>
                 </div>
