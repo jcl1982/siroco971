@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { Plus, Save, Trash2 } from "lucide-react";
+import { Plus, Save, Trash2, Upload, Loader2 } from "lucide-react";
 import {
   CLES_REGLAGES,
   useActualites,
@@ -19,6 +19,54 @@ import {
   useReglages,
 } from "@/lib/site-content";
 import logoAsset from "@/assets/siroco-logo.png.asset.json";
+
+/** Téléverse un fichier dans le bucket site-images et renvoie l'URL publique. */
+async function televerserImage(fichier: File): Promise<string> {
+  const ext = fichier.name.split(".").pop() ?? "jpg";
+  const nom = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await supabase.storage.from("site-images").upload(nom, fichier, { upsert: false });
+  if (error) throw error;
+  const { data } = supabase.storage.from("site-images").getPublicUrl(nom);
+  return data.publicUrl;
+}
+
+/** Champ image : saisie d'URL + bouton de téléversement + aperçu. */
+function ChampImage({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  const ref = useRef<HTMLInputElement>(null);
+  const [envoi, setEnvoi] = useState(false);
+  const id = label.replace(/\s+/g, "-").toLowerCase();
+
+  async function surFichier(e: React.ChangeEvent<HTMLInputElement>) {
+    const fichier = e.target.files?.[0];
+    if (!fichier) return;
+    setEnvoi(true);
+    try {
+      const url = await televerserImage(fichier);
+      onChange(url);
+      toast.success("Image téléversée");
+    } catch {
+      toast.error("Téléversement impossible");
+    } finally {
+      setEnvoi(false);
+      if (ref.current) ref.current.value = "";
+    }
+  }
+
+  return (
+    <div className="grid gap-1.5">
+      <Label htmlFor={id} className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</Label>
+      <div className="flex gap-2">
+        <Input id={id} value={value} onChange={(e) => onChange(e.target.value)} placeholder="Collez une adresse ou téléversez un fichier" />
+        <Button type="button" variant="outline" size="sm" className="shrink-0 rounded-md" disabled={envoi} onClick={() => ref.current?.click()}>
+          {envoi ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+          <span className="hidden sm:inline">Téléverser</span>
+        </Button>
+        <input ref={ref} type="file" accept="image/*" className="hidden" onChange={surFichier} />
+      </div>
+      {value && <img src={value} alt="" className="h-24 w-full rounded-md object-cover" />}
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/_authenticated/admin")({
   component: PageAdmin,
@@ -247,7 +295,7 @@ function OngletActualites() {
               <Champ label="Titre" value={String(b["title"] ?? "")} onChange={(v) => maj("title", v)} />
               <Champ label="Catégorie" value={String(b["category"] ?? "")} onChange={(v) => maj("category", v)} />
               <Champ label="Date (AAAA-MM-JJ)" value={String(b["published_on"] ?? "")} onChange={(v) => maj("published_on", v)} />
-              <Champ label="Adresse de l’image" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Image de l’actualité" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <div className="sm:col-span-2">
                 <Champ label="Résumé" multiligne value={String(b["excerpt"] ?? "")} onChange={(v) => maj("excerpt", v)} />
               </div>
@@ -302,7 +350,7 @@ function OngletMatchs() {
               <Champ label="Buteurs" value={String(b["scorers"] ?? "")} onChange={(v) => maj("scorers", v)} />
               <Champ label="Arbitrage" value={String(b["referee"] ?? "")} onChange={(v) => maj("referee", v)} />
               <Champ label="Affluence" value={String(b["attendance"] ?? "")} onChange={(v) => maj("attendance", v)} />
-              <Champ label="Photo du match (adresse)" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Photo du match" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <div className="sm:col-span-2">
                 <Champ label="Résumé (une phrase)" multiligne value={String(b["summary"] ?? "")} onChange={(v) => maj("summary", v)} />
               </div>
@@ -368,10 +416,9 @@ function OngletGalerie() {
           const maj = (cle: string, v: unknown) => setBrouillons((e) => ({ ...e, [item.id]: { ...e[item.id], [cle]: v } }));
           return (
             <LigneEditable key={item.id} onSave={() => sauvegarder(b as LigneQuelconque)} onDelete={() => supprimer(item.id)}>
-              <Champ label="Adresse de l’image" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Photo de la galerie" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <Champ label="Légende" value={String(b["caption"] ?? "")} onChange={(v) => maj("caption", v)} />
-              <Champ label="Ordre d’affichage" value={String(b["sort_order"] ?? "")} onChange={(v) => maj("sort_order", Number(v) || 0)} />
-              {String(b["image_url"] ?? "") && <img src={String(b["image_url"])} alt={String(b["caption"] ?? "Photo du club")} className="h-24 w-full rounded-md object-cover" />}
+              <Champ label="Ordre d'affichage" value={String(b["sort_order"] ?? "")} onChange={(v) => maj("sort_order", Number(v) || 0)} />
             </LigneEditable>
           );
         })}
