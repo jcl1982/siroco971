@@ -70,6 +70,7 @@ export type Database = {
       }
       matches: {
         Row: {
+          attendance: string
           away_score: number | null
           away_team: string
           competition: string
@@ -77,12 +78,20 @@ export type Database = {
           home_score: number | null
           home_team: string
           id: string
+          image_url: string
           kickoff: string
+          matchday: string
+          referee: string
+          report: string
+          scorers: string
           sort_order: number
+          summary: string
           updated_at: string
           venue: string
+          video_url: string
         }
         Insert: {
+          attendance?: string
           away_score?: number | null
           away_team?: string
           competition?: string
@@ -90,12 +99,20 @@ export type Database = {
           home_score?: number | null
           home_team?: string
           id?: string
+          image_url?: string
           kickoff?: string
+          matchday?: string
+          referee?: string
+          report?: string
+          scorers?: string
           sort_order?: number
+          summary?: string
           updated_at?: string
           venue?: string
+          video_url?: string
         }
         Update: {
+          attendance?: string
           away_score?: number | null
           away_team?: string
           competition?: string
@@ -103,10 +120,17 @@ export type Database = {
           home_score?: number | null
           home_team?: string
           id?: string
+          image_url?: string
           kickoff?: string
+          matchday?: string
+          referee?: string
+          report?: string
+          scorers?: string
           sort_order?: number
+          summary?: string
           updated_at?: string
           venue?: string
+          video_url?: string
         }
         Relationships: []
       }
