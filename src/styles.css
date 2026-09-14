@@ -166,7 +166,7 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      oklch(0.92 0.015 150 / 0.55),
+      oklch(0.92 0 0 / 0.5),
       transparent 38%
     );
     pointer-events: none;
