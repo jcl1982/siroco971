@@ -134,3 +134,41 @@
     pointer-events: none;
   }
 }
+
+/* Effet 3D sur les boutons verts : dégradé diagonal + bord inférieur foncé + ombre portée */
+@utility btn-3d {
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--color-primary) 82%, white 18%),
+    var(--color-primary-deep)
+  );
+  border-bottom: 4px solid oklch(0.18 0.05 158);
+  box-shadow: 0 8px 16px -6px oklch(0.2 0.03 155 / 0.45);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+
+  &:hover {
+    box-shadow: 0 10px 20px -6px oklch(0.2 0.03 155 / 0.55);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px -4px oklch(0.2 0.03 155 / 0.4);
+  }
+}
+
+/* Petit dégradé gris→blanc en haut du header, sous la barre sombre */
+@utility header-shade {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      oklch(0.92 0.015 150 / 0.55),
+      transparent 38%
+    );
+    pointer-events: none;
+  }
+}
