@@ -17,6 +17,7 @@ import { Route as CalendrierRouteImport } from './routes/calendrier'
 import { Route as ClubRouteImport } from './routes/club'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as FormationRouteImport } from './routes/formation'
+import { Route as MediasRouteImport } from './routes/medias'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,6 +59,11 @@ const FormationRoute = FormationRouteImport.update({
   path: '/formation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MediasRoute = MediasRouteImport.update({
+  id: '/medias',
+  path: '/medias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/club'
     | '/equipes'
     | '/formation'
+    | '/medias'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/club'
     | '/equipes'
     | '/formation'
+    | '/medias'
     | '/admin'
   id:
     | '__root__'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/club'
     | '/equipes'
     | '/formation'
+    | '/medias'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   ClubRoute: typeof ClubRoute
   EquipesRoute: typeof EquipesRoute
   FormationRoute: typeof FormationRoute
+  MediasRoute: typeof MediasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/medias': {
+      id: '/medias'
+      path: '/medias'
+      fullPath: '/medias'
+      preLoaderRoute: typeof MediasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -229,6 +249,7 @@ const rootRouteChildren: RootRouteChildren = {
   ClubRoute: ClubRoute,
   EquipesRoute: EquipesRoute,
   FormationRoute: FormationRoute,
+  MediasRoute: MediasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
