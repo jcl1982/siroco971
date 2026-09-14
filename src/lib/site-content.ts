@@ -16,6 +16,7 @@ export type Actualite = {
 export type Match = {
   id: string;
   competition: string;
+  matchday: string;
   home_team: string;
   away_team: string;
   kickoff: string;
@@ -23,6 +24,13 @@ export type Match = {
   home_score: number | null;
   away_score: number | null;
   sort_order: number;
+  video_url: string;
+  summary: string;
+  report: string;
+  scorers: string;
+  referee: string;
+  attendance: string;
+  image_url: string;
 };
 
 export type Classement = {
