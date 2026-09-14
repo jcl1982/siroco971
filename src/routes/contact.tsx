@@ -65,6 +65,26 @@ function PageContact() {
             <a href={`mailto:${reglages["contact_email"]}`} className="flex items-center gap-3 hover:text-primary"><Mail className="h-4 w-4 text-primary" />{reglages["contact_email"]}</a>
             <a href={`tel:${(reglages["contact_phone"] ?? "").replace(/\s/g, "")}`} className="flex items-center gap-3 hover:text-primary"><Phone className="h-4 w-4 text-primary" />{reglages["contact_phone"]}</a>
           </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-border bg-secondary/40 p-5">
+              <h3 className="flex items-center gap-2 font-impact text-lg uppercase"><Clock3 className="h-4 w-4 text-primary" />Secrétariat</h3>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                Club-house du Stade Municipal des Abymes<br />Mercredi : 14h – 18h<br />Samedi : 9h – 12h<br />Fermé pendant les vacances de Noël.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-secondary/40 p-5">
+              <h3 className="flex items-center gap-2 font-impact text-lg uppercase"><FileText className="h-4 w-4 text-primary" />Inscription</h3>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                À apporter : certificat médical de moins de 3 mois, photo d’identité, copie d’une pièce d’identité et autorisation parentale pour les mineurs.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-background p-5 text-xs leading-relaxed text-muted-foreground">
+            <strong className="block font-impact text-base uppercase text-foreground">Qui contacter ?</strong>
+            Inscriptions et licences : le secrétariat. Questions sportives : le responsable technique. Partenariats et sponsoring : le trésorier. Votre message est transmis à la bonne personne sous 48 h.
+          </div>
           <iframe
             title="Carte des Abymes"
             src="https://www.openstreetmap.org/export/embed.html?bbox=-61.55%2C16.25%2C-61.47%2C16.30&layer=mapnik"
