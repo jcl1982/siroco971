@@ -150,16 +150,16 @@ function Accueil() {
           <div className="absolute inset-y-0 left-[43%] hidden w-24 -skew-x-12 bg-primary/55 mix-blend-multiply lg:block" />
           <div className="relative mx-auto flex min-h-[510px] max-w-[1440px] items-center px-6 lg:min-h-[590px] lg:px-12">
             <div className="w-full max-w-[660px] text-primary-foreground">
-              <p className="mb-4 text-[12px] font-bold uppercase tracking-[0.55em]">Club de football</p>
-              <h1 className="font-brush text-[5.3rem] uppercase italic leading-[0.72] sm:text-[7rem] lg:text-[9.5rem]">Siroco<br /><span className="text-primary">Abymes</span></h1>
-              <p className="mt-7 text-[11px] font-black uppercase tracking-[0.42em]">Passion · Respect · Formation</p>
+              <p className="mb-4 text-[12px] font-bold uppercase tracking-[0.55em]">{reglages["hero_subtitle"]}</p>
+              <h1 className="font-brush text-[5.3rem] uppercase italic leading-[0.72] sm:text-[7rem] lg:text-[9.5rem]">{heroLigne1}<br /><span className="text-primary">{heroLigne2}</span></h1>
+              <p className="mt-7 text-[11px] font-black uppercase tracking-[0.42em]">{reglages["hero_tagline"]}</p>
               <div className="mt-7 h-1 w-40 -skew-x-12 bg-primary" />
               <div className="mt-7 flex gap-3">
                 <Button asChild size="lg" className="btn-3d h-12 min-w-44 skew-x-[-8deg] rounded-md uppercase"><a href="#club"><span className="skew-x-[8deg]">Notre club →</span></a></Button>
                 <Button asChild variant="outline" size="lg" className="h-12 min-w-44 skew-x-[-8deg] rounded-md border-primary-foreground/60 bg-foreground/25 text-primary-foreground uppercase hover:bg-primary-foreground hover:text-foreground"><a href="#equipes"><span className="skew-x-[8deg]">Nos équipes →</span></a></Button>
               </div>
             </div>
-            <p className="absolute right-8 top-12 hidden max-w-[250px] rotate-[-8deg] text-center font-hand text-4xl leading-tight text-foreground lg:block">« Fiers<br />de nos couleurs »<span className="mx-auto mt-2 block h-1 w-36 -skew-x-12 bg-primary" /></p>
+            <p className="absolute right-8 top-12 hidden max-w-[250px] rotate-[-8deg] text-center font-hand text-4xl leading-tight text-foreground lg:block">« {reglages["hero_quote"]} »<span className="mx-auto mt-2 block h-1 w-36 -skew-x-12 bg-primary" /></p>
             <p className="absolute bottom-12 right-8 hidden text-right text-[14px] font-black uppercase tracking-[0.35em] text-primary-foreground lg:block">Abymes<br />Territoire<br />Football<br />Passion</p>
           </div>
         </section>
