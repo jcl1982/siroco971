@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
 import { useActualites } from "@/lib/site-content";
@@ -22,26 +23,39 @@ export const Route = createFileRoute("/actualites")({
 
 const imagesDefaut = [newsAcademy, newsTeam, newsSupporters];
 
-const actualitesDefaut = [
-  { id: "1", title: "Reprise des entraînements", excerpt: "Les équipes du Siroco ont repris le chemin des terrains pour la nouvelle saison !", category: "Club", published_on: "2025-09-12", image_url: "" },
-  { id: "2", title: "Inscriptions saison 2025–2026", excerpt: "Les inscriptions sont ouvertes. Rejoignez la famille Siroco !", category: "Inscriptions", published_on: "2025-09-05", image_url: "" },
-  { id: "3", title: "Stage jeunes pendant les vacances", excerpt: "Un stage de perfectionnement est organisé du 20 au 24 octobre.", category: "Formation", published_on: "2025-09-01", image_url: "" },
-];
-
 function PageActualites() {
   const { q = "" } = Route.useSearch();
   const { data } = useActualites();
-  const source = (data ?? []).length ? data! : actualitesDefaut;
+  const [categorie, setCategorie] = useState<string>("Toutes");
+  const source = data ?? [];
+  const categories = ["Toutes", ...Array.from(new Set(source.map((actu) => actu.category)))];
   const recherche = q.trim().toLowerCase();
-  const liste = recherche
-    ? source.filter((actu) => `${actu.title} ${actu.excerpt} ${actu.category}`.toLowerCase().includes(recherche))
-    : source;
+
+  const liste = source
+    .filter((actu) => (categorie === "Toutes" ? true : actu.category === categorie))
+    .filter((actu) => (recherche ? `${actu.title} ${actu.excerpt} ${actu.category}`.toLowerCase().includes(recherche) : true));
 
   return (
     <SiteShell>
       <EnTetePage titre="Actualités" sousTitre="Résultats, inscriptions, stages et coulisses : suivez la vie du Siroco des Abymes semaine après semaine." image={newsTeam} />
       <section className="mx-auto max-w-[1440px] px-5 py-14">
         <TitreSection>{recherche ? `Résultats pour « ${q} »` : "Toutes les actualités"}</TitreSection>
+
+        {categories.length > 1 && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {categories.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setCategorie(item)}
+                className={`rounded-full border px-4 py-1.5 text-[11px] font-black uppercase ${categorie === item ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary"}`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
+
         {liste.length === 0 ? (
           <p className="mt-6 text-sm text-muted-foreground">Aucune actualité ne correspond à cette recherche.</p>
         ) : (

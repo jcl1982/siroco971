@@ -1,7 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { CalendarDays, Clock3, MapPin } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { CalendarDays, Clock3, Film, MapPin } from "lucide-react";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
-import { formatDateFr, formatHeureFr, useClassement, useMatchs } from "@/lib/site-content";
+import {
+  formatDateFr,
+  formatHeureFr,
+  matchJoue,
+  resultatSiroco,
+  useClassement,
+  useMatchs,
+  type Match,
+} from "@/lib/site-content";
 import heroMatch from "@/assets/hero-match.jpg";
 
 export const Route = createFileRoute("/calendrier")({
@@ -18,50 +26,93 @@ export const Route = createFileRoute("/calendrier")({
   component: PageCalendrier,
 });
 
-const classementDefaut = [
-  { id: "1", position: 1, team: "Siroco Abymes", points: 9, played: 3, goal_diff: "+6" },
-  { id: "2", position: 2, team: "A.S. Rivière-Salée", points: 7, played: 3, goal_diff: "+4" },
-  { id: "3", position: 3, team: "C.S. Baie-Mahault", points: 6, played: 3, goal_diff: "+2" },
-  { id: "4", position: 4, team: "A.S. Gosier", points: 4, played: 3, goal_diff: "0" },
-  { id: "5", position: 5, team: "U.S. Sainte-Anne", points: 3, played: 3, goal_diff: "-1" },
-];
+const couleurIssue = {
+  victoire: "bg-primary text-primary-foreground",
+  nul: "bg-muted text-foreground",
+  defaite: "bg-destructive text-destructive-foreground",
+} as const;
 
-const matchsDefaut = [
-  { id: "1", competition: "Championnat régional — Journée 3", home_team: "Siroco Abymes", away_team: "A.S. Rivière-Salée", kickoff: "2025-09-20T16:00:00Z", venue: "Stade Municipal des Abymes", home_score: null, away_score: null },
-];
+function CarteMatch({ match }: { match: Match }) {
+  const joue = matchJoue(match);
+  const issue = resultatSiroco(match);
+  return (
+    <Link
+      to="/match/$id"
+      params={{ id: match.id }}
+      className="block rounded-xl border border-border bg-secondary/40 p-5 transition-colors hover:border-primary"
+    >
+      <p className="text-[10px] font-bold uppercase tracking-wide text-primary">
+        {match.competition}{match.matchday ? ` — ${match.matchday}` : ""}
+      </p>
+      <div className="mt-2 flex flex-wrap items-center gap-3">
+        <h3 className="font-impact text-xl uppercase">
+          {match.home_team} <span className="text-primary">vs</span> {match.away_team}
+        </h3>
+        {joue ? (
+          <span className={`rounded-md px-3 py-1 font-impact text-sm ${issue ? couleurIssue[issue] : "bg-foreground text-primary-foreground"}`}>
+            {match.home_score} – {match.away_score}
+          </span>
+        ) : (
+          <span className="rounded-full border border-border px-3 py-1 text-[10px] font-black uppercase text-muted-foreground">À venir</span>
+        )}
+        {match.video_url && <Film className="h-4 w-4 text-primary" aria-label="Vidéo disponible" />}
+      </div>
+      <div className="mt-3 grid gap-1.5 text-xs text-muted-foreground sm:grid-cols-3">
+        <span className="flex items-center gap-2"><CalendarDays className="h-3.5 w-3.5 text-primary" />{formatDateFr(match.kickoff)}</span>
+        <span className="flex items-center gap-2"><Clock3 className="h-3.5 w-3.5 text-primary" />{formatHeureFr(match.kickoff)}</span>
+        <span className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-primary" />{match.venue}</span>
+      </div>
+      {match.summary && <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{match.summary}</p>}
+      <span className="mt-3 inline-block text-[10px] font-black uppercase text-primary">Voir la fiche du match →</span>
+    </Link>
+  );
+}
 
 function PageCalendrier() {
   const { data: matchs } = useMatchs();
   const { data: classement } = useClassement();
-  const listeMatchs = (matchs ?? []).length ? matchs! : matchsDefaut;
-  const listeClassement = (classement ?? []).length ? classement! : classementDefaut;
+  const liste = matchs ?? [];
+  const aVenir = liste.filter((m) => !matchJoue(m));
+  const joues = liste.filter(matchJoue).reverse();
+  const listeClassement = classement ?? [];
+
+  const bilan = {
+    v: joues.filter((m) => resultatSiroco(m) === "victoire").length,
+    n: joues.filter((m) => resultatSiroco(m) === "nul").length,
+    d: joues.filter((m) => resultatSiroco(m) === "defaite").length,
+  };
 
   return (
     <SiteShell>
-      <EnTetePage titre="Calendrier" sousTitre="Les rendez-vous de la saison, les résultats et le classement du championnat, mis à jour par le club." image={heroMatch} />
+      <EnTetePage
+        titre="Calendrier"
+        sousTitre="Tous les rendez-vous de la saison, les résultats avec les comptes-rendus et le classement du championnat."
+        image={heroMatch}
+      />
       <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 lg:grid-cols-[1.3fr_1fr]">
         <div>
-          <TitreSection>Matchs de la saison</TitreSection>
+          <TitreSection>Prochains matchs</TitreSection>
           <div className="mt-6 space-y-3">
-            {listeMatchs.map((match) => {
-              const joue = match.home_score !== null && match.away_score !== null;
-              return (
-                <article key={match.id} className="rounded-xl border border-border bg-secondary/40 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-wide text-primary">{match.competition}</p>
-                  <div className="mt-2 flex flex-wrap items-center gap-3">
-                    <h3 className="font-impact text-xl uppercase">{match.home_team} <span className="text-primary">vs</span> {match.away_team}</h3>
-                    {joue && <span className="rounded-md bg-foreground px-3 py-1 font-impact text-sm text-primary-foreground">{match.home_score} – {match.away_score}</span>}
-                  </div>
-                  <div className="mt-3 grid gap-1.5 text-xs text-muted-foreground sm:grid-cols-3">
-                    <span className="flex items-center gap-2"><CalendarDays className="h-3.5 w-3.5 text-primary" />{formatDateFr(match.kickoff)}</span>
-                    <span className="flex items-center gap-2"><Clock3 className="h-3.5 w-3.5 text-primary" />{formatHeureFr(match.kickoff)}</span>
-                    <span className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-primary" />{match.venue}</span>
-                  </div>
-                </article>
-              );
-            })}
+            {aVenir.length ? aVenir.map((match) => <CarteMatch key={match.id} match={match} />) : (
+              <p className="text-sm text-muted-foreground">Aucun match programmé pour le moment.</p>
+            )}
+          </div>
+
+          <div className="mt-12">
+            <TitreSection>Résultats</TitreSection>
+            <div className="mt-4 flex gap-3 text-[11px] font-black uppercase">
+              <span className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{bilan.v} victoires</span>
+              <span className="rounded-md bg-muted px-3 py-1.5">{bilan.n} nuls</span>
+              <span className="rounded-md border border-border px-3 py-1.5 text-muted-foreground">{bilan.d} défaites</span>
+            </div>
+            <div className="mt-5 space-y-3">
+              {joues.length ? joues.map((match) => <CarteMatch key={match.id} match={match} />) : (
+                <p className="text-sm text-muted-foreground">Les premiers résultats de la saison seront publiés ici.</p>
+              )}
+            </div>
           </div>
         </div>
+
         <div>
           <TitreSection>Classement</TitreSection>
           <table className="mt-6 w-full text-left text-xs">
@@ -78,6 +129,10 @@ function PageCalendrier() {
               ))}
             </tbody>
           </table>
+          <div className="mt-6 rounded-xl border border-border bg-secondary/40 p-5 text-xs leading-relaxed text-muted-foreground">
+            <strong className="block font-impact text-base uppercase text-foreground">Infos pratiques</strong>
+            Entrée libre pour les licenciés du club. Buvette tenue par les parents à chaque match à domicile. Les horaires peuvent être modifiés par la ligue : vérifiez cette page la veille de la rencontre.
+          </div>
         </div>
       </section>
     </SiteShell>

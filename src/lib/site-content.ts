@@ -16,6 +16,7 @@ export type Actualite = {
 export type Match = {
   id: string;
   competition: string;
+  matchday: string;
   home_team: string;
   away_team: string;
   kickoff: string;
@@ -23,6 +24,13 @@ export type Match = {
   home_score: number | null;
   away_score: number | null;
   sort_order: number;
+  video_url: string;
+  summary: string;
+  report: string;
+  scorers: string;
+  referee: string;
+  attendance: string;
+  image_url: string;
 };
 
 export type Classement = {
@@ -179,4 +187,39 @@ export function formatDateFr(iso: string) {
 
 export function formatHeureFr(iso: string) {
   return new Date(iso).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+}
+
+export function useMatch(id: string) {
+  return useQuery({
+    queryKey: ["match", id],
+    queryFn: async (): Promise<Match | null> => {
+      const { data, error } = await supabase.from("matches").select("*").eq("id", id).maybeSingle();
+      if (error) throw error;
+      return (data ?? null) as Match | null;
+    },
+  });
+}
+
+/** Transforme un lien YouTube / Vimeo en adresse intégrable dans le site. */
+export function lienVideoIntegrable(url: string): string | null {
+  if (!url) return null;
+  const youtube = url.match(/(?:youtu\.be\/|v=|youtube\.com\/embed\/)([\w-]{6,})/);
+  if (youtube?.[1]) return `https://www.youtube.com/embed/${youtube[1]}`;
+  const vimeo = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeo?.[1]) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
+}
+
+export function matchJoue(match: Match) {
+  return match.home_score !== null && match.away_score !== null;
+}
+
+export function resultatSiroco(match: Match): "victoire" | "nul" | "defaite" | null {
+  if (!matchJoue(match)) return null;
+  const domicile = match.home_team.toLowerCase().includes("siroco");
+  const pour = domicile ? match.home_score! : match.away_score!;
+  const contre = domicile ? match.away_score! : match.home_score!;
+  if (pour > contre) return "victoire";
+  if (pour === contre) return "nul";
+  return "defaite";
 }

@@ -297,6 +297,18 @@ function OngletMatchs() {
                 maj("home_score", d === "" || d === undefined ? null : Number(d));
                 maj("away_score", ext === "" || ext === undefined ? null : Number(ext));
               }} />
+              <Champ label="Journée / tour" value={String(b["matchday"] ?? "")} onChange={(v) => maj("matchday", v)} />
+              <Champ label="Lien de la vidéo (YouTube, Vimeo…)" value={String(b["video_url"] ?? "")} onChange={(v) => maj("video_url", v)} />
+              <Champ label="Buteurs" value={String(b["scorers"] ?? "")} onChange={(v) => maj("scorers", v)} />
+              <Champ label="Arbitrage" value={String(b["referee"] ?? "")} onChange={(v) => maj("referee", v)} />
+              <Champ label="Affluence" value={String(b["attendance"] ?? "")} onChange={(v) => maj("attendance", v)} />
+              <Champ label="Photo du match (adresse)" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <div className="sm:col-span-2">
+                <Champ label="Résumé (une phrase)" multiligne value={String(b["summary"] ?? "")} onChange={(v) => maj("summary", v)} />
+              </div>
+              <div className="sm:col-span-2">
+                <Champ label="Compte-rendu du match" multiligne value={String(b["report"] ?? "")} onChange={(v) => maj("report", v)} />
+              </div>
             </LigneEditable>
           );
         })}
