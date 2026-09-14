@@ -155,7 +155,7 @@ function OngletReglages() {
     const lignes = CLES_REGLAGES.map((c) => ({ key: c.key, value: valeurs[c.key] ?? "" }));
     const { error } = await supabase.from("site_settings").upsert(lignes, { onConflict: "key" });
     setEnvoi(false);
-    if (error) return toast.error("Enregistrement impossible");
+    if (error) { toast.error("Enregistrement impossible"); return; }
     toast.success("Textes enregistrés");
     client.invalidateQueries({ queryKey: ["site_settings"] });
   }
@@ -169,7 +169,7 @@ function OngletReglages() {
               <div key={champ.key} className={champ.multiligne ? "sm:col-span-2" : ""}>
                 <Champ
                   label={champ.label}
-                  multiligne={champ.multiligne}
+                  multiligne={champ.multiligne ?? false}
                   value={valeurs[champ.key] ?? ""}
                   onChange={(v) => setValeurs((etat) => ({ ...etat, [champ.key]: v }))}
                 />
@@ -191,20 +191,22 @@ function useTable(table: "news" | "matches" | "standings" | "gallery", cleCache:
   const client = useQueryClient();
   async function sauvegarder(ligne: LigneQuelconque) {
     const { id, ...reste } = ligne;
-    const { error } = await supabase.from(table).update(reste).eq("id", id);
-    if (error) return toast.error("Enregistrement impossible");
+    const requete = supabase.from(table) as unknown as { update: (v: Record<string, unknown>) => { eq: (c: string, v: string) => Promise<{ error: unknown }> } };
+    const { error } = await requete.update(reste).eq("id", id);
+    if (error) { toast.error("Enregistrement impossible"); return; }
     toast.success("Modification enregistrée");
     client.invalidateQueries({ queryKey: [cleCache] });
   }
   async function supprimer(id: string) {
     const { error } = await supabase.from(table).delete().eq("id", id);
-    if (error) return toast.error("Suppression impossible");
+    if (error) { toast.error("Suppression impossible"); return; }
     toast.success("Élément supprimé");
     client.invalidateQueries({ queryKey: [cleCache] });
   }
   async function ajouter(valeurs: Record<string, unknown>) {
-    const { error } = await supabase.from(table).insert(valeurs);
-    if (error) return toast.error("Ajout impossible");
+    const requete = supabase.from(table) as unknown as { insert: (v: Record<string, unknown>) => Promise<{ error: unknown }> };
+    const { error } = await requete.insert(valeurs);
+    if (error) { toast.error("Ajout impossible"); return; }
     toast.success("Élément ajouté");
     client.invalidateQueries({ queryKey: [cleCache] });
   }
