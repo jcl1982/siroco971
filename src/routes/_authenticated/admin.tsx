@@ -350,7 +350,7 @@ function OngletMatchs() {
               <Champ label="Buteurs" value={String(b["scorers"] ?? "")} onChange={(v) => maj("scorers", v)} />
               <Champ label="Arbitrage" value={String(b["referee"] ?? "")} onChange={(v) => maj("referee", v)} />
               <Champ label="Affluence" value={String(b["attendance"] ?? "")} onChange={(v) => maj("attendance", v)} />
-              <Champ label="Photo du match (adresse)" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Photo du match" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <div className="sm:col-span-2">
                 <Champ label="Résumé (une phrase)" multiligne value={String(b["summary"] ?? "")} onChange={(v) => maj("summary", v)} />
               </div>
@@ -416,10 +416,9 @@ function OngletGalerie() {
           const maj = (cle: string, v: unknown) => setBrouillons((e) => ({ ...e, [item.id]: { ...e[item.id], [cle]: v } }));
           return (
             <LigneEditable key={item.id} onSave={() => sauvegarder(b as LigneQuelconque)} onDelete={() => supprimer(item.id)}>
-              <Champ label="Adresse de l’image" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
+              <ChampImage label="Photo de la galerie" value={String(b["image_url"] ?? "")} onChange={(v) => maj("image_url", v)} />
               <Champ label="Légende" value={String(b["caption"] ?? "")} onChange={(v) => maj("caption", v)} />
-              <Champ label="Ordre d’affichage" value={String(b["sort_order"] ?? "")} onChange={(v) => maj("sort_order", Number(v) || 0)} />
-              {String(b["image_url"] ?? "") && <img src={String(b["image_url"])} alt={String(b["caption"] ?? "Photo du club")} className="h-24 w-full rounded-md object-cover" />}
+              <Champ label="Ordre d'affichage" value={String(b["sort_order"] ?? "")} onChange={(v) => maj("sort_order", Number(v) || 0)} />
             </LigneEditable>
           );
         })}
