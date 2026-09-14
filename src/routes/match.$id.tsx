@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, CalendarDays, Clock3, Film, MapPin, Users, Whistle } from "lucide-react";
+import { ArrowLeft, CalendarDays, Clock3, Film, MapPin, Users, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, TitreSection } from "@/components/site-shell";
 import {
@@ -133,7 +133,7 @@ function PageMatch() {
           <dl className="grid gap-3 rounded-xl border border-border bg-secondary/40 p-5 text-sm">
             <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary">Compétition</dt><dd>{match.competition} {match.matchday}</dd></div>
             {match.scorers && <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary">Buteurs</dt><dd className="text-muted-foreground">{match.scorers}</dd></div>}
-            {match.referee && <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary flex items-center gap-1.5"><Whistle className="h-3.5 w-3.5" />Arbitrage</dt><dd className="text-muted-foreground">{match.referee}</dd></div>}
+            {match.referee && <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary flex items-center gap-1.5"><Flag className="h-3.5 w-3.5" />Arbitrage</dt><dd className="text-muted-foreground">{match.referee}</dd></div>}
             {match.attendance && <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary flex items-center gap-1.5"><Users className="h-3.5 w-3.5" />Affluence</dt><dd className="text-muted-foreground">{match.attendance}</dd></div>}
             <div><dt className="text-[10px] font-bold uppercase tracking-wide text-primary">Stade</dt><dd className="text-muted-foreground">{match.venue}</dd></div>
           </dl>
