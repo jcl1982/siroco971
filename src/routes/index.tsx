@@ -90,7 +90,7 @@ function Accueil() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
+      <header className="header-shade sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
         <div className="mx-auto flex h-[84px] max-w-[1440px] items-center px-5">
           <a href="#accueil" className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo du Siroco des Abymes" className="h-[68px] w-[68px] object-contain" />
@@ -114,7 +114,7 @@ function Accueil() {
               <p className="mt-7 text-[11px] font-black uppercase tracking-[0.42em]">Passion · Respect · Formation</p>
               <div className="mt-7 h-1 w-40 -skew-x-12 bg-primary" />
               <div className="mt-7 flex gap-3">
-                <Button asChild size="lg" className="h-12 min-w-44 skew-x-[-8deg] rounded-none uppercase"><a href="#club"><span className="skew-x-[8deg]">Notre club →</span></a></Button>
+                <Button asChild size="lg" className="btn-3d h-12 min-w-44 skew-x-[-8deg] rounded-none uppercase"><a href="#club"><span className="skew-x-[8deg]">Notre club →</span></a></Button>
                 <Button asChild variant="outline" size="lg" className="h-12 min-w-44 skew-x-[-8deg] rounded-none border-primary-foreground/60 bg-foreground/25 text-primary-foreground uppercase hover:bg-primary-foreground hover:text-foreground"><a href="#equipes"><span className="skew-x-[8deg]">Nos équipes →</span></a></Button>
               </div>
             </div>
