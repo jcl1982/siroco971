@@ -18,6 +18,7 @@ import { Route as ClubRouteImport } from './routes/club'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as FormationRouteImport } from './routes/formation'
 import { Route as MediasRouteImport } from './routes/medias'
+import { Route as PartenairesRouteImport } from './routes/partenaires'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const IndexRoute = IndexRouteImport.update({
@@ -64,6 +65,11 @@ const MediasRoute = MediasRouteImport.update({
   path: '/medias',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartenairesRoute = PartenairesRouteImport.update({
+  id: '/partenaires',
+  path: '/partenaires',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
   '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
   '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
   '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/equipes'
     | '/formation'
     | '/medias'
+    | '/partenaires'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/equipes'
     | '/formation'
     | '/medias'
+    | '/partenaires'
     | '/admin'
   id:
     | '__root__'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/equipes'
     | '/formation'
     | '/medias'
+    | '/partenaires'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   EquipesRoute: typeof EquipesRoute
   FormationRoute: typeof FormationRoute
   MediasRoute: typeof MediasRoute
+  PartenairesRoute: typeof PartenairesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MediasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partenaires': {
+      id: '/partenaires'
+      path: '/partenaires'
+      fullPath: '/partenaires'
+      preLoaderRoute: typeof PartenairesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -250,6 +270,7 @@ const rootRouteChildren: RootRouteChildren = {
   EquipesRoute: EquipesRoute,
   FormationRoute: FormationRoute,
   MediasRoute: MediasRoute,
+  PartenairesRoute: PartenairesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
