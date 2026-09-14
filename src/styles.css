@@ -34,6 +34,8 @@
   --color-ring: var(--ring);
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-impact: "Oswald", "Archivo", ui-sans-serif, sans-serif;
+  --font-brush: "Bangers", "Oswald", ui-sans-serif, sans-serif;
+  --font-hand: "Caveat Brush", cursive;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -104,7 +106,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 }
 
