@@ -11,7 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as ActualitesRouteImport } from './routes/actualites'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CalendrierRouteImport } from './routes/calendrier'
+import { Route as ClubRouteImport } from './routes/club'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EquipesRouteImport } from './routes/equipes'
+import { Route as FormationRouteImport } from './routes/formation'
+import { Route as MediasRouteImport } from './routes/medias'
+import { Route as PartenairesRouteImport } from './routes/partenaires'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,9 +31,49 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActualitesRoute = ActualitesRouteImport.update({
+  id: '/actualites',
+  path: '/actualites',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendrierRoute = CalendrierRouteImport.update({
+  id: '/calendrier',
+  path: '/calendrier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClubRoute = ClubRouteImport.update({
+  id: '/club',
+  path: '/club',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipesRoute = EquipesRouteImport.update({
+  id: '/equipes',
+  path: '/equipes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormationRoute = FormationRouteImport.update({
+  id: '/formation',
+  path: '/formation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MediasRoute = MediasRouteImport.update({
+  id: '/medias',
+  path: '/medias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartenairesRoute = PartenairesRouteImport.update({
+  id: '/partenaires',
+  path: '/partenaires',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -36,33 +84,100 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/equipes': typeof EquipesRoute
+  '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/equipes': typeof EquipesRoute
+  '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/equipes': typeof EquipesRoute
+  '/formation': typeof FormationRoute
+  '/medias': typeof MediasRoute
+  '/partenaires': typeof PartenairesRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/admin'
+  fullPaths:
+    | '/'
+    | '/actualites'
+    | '/auth'
+    | '/calendrier'
+    | '/club'
+    | '/contact'
+    | '/equipes'
+    | '/formation'
+    | '/medias'
+    | '/partenaires'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/admin'
-  id: '__root__' | '/' | '/_authenticated' | '/auth' | '/_authenticated/admin'
+  to:
+    | '/'
+    | '/actualites'
+    | '/auth'
+    | '/calendrier'
+    | '/club'
+    | '/contact'
+    | '/equipes'
+    | '/formation'
+    | '/medias'
+    | '/partenaires'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/actualites'
+    | '/auth'
+    | '/calendrier'
+    | '/club'
+    | '/contact'
+    | '/equipes'
+    | '/formation'
+    | '/medias'
+    | '/partenaires'
+    | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ActualitesRoute: typeof ActualitesRoute
   AuthRoute: typeof AuthRoute
+  CalendrierRoute: typeof CalendrierRoute
+  ClubRoute: typeof ClubRoute
+  ContactRoute: typeof ContactRoute
+  EquipesRoute: typeof EquipesRoute
+  FormationRoute: typeof FormationRoute
+  MediasRoute: typeof MediasRoute
+  PartenairesRoute: typeof PartenairesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -81,11 +196,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actualites': {
+      id: '/actualites'
+      path: '/actualites'
+      fullPath: '/actualites'
+      preLoaderRoute: typeof ActualitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendrier': {
+      id: '/calendrier'
+      path: '/calendrier'
+      fullPath: '/calendrier'
+      preLoaderRoute: typeof CalendrierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/club': {
+      id: '/club'
+      path: '/club'
+      fullPath: '/club'
+      preLoaderRoute: typeof ClubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipes': {
+      id: '/equipes'
+      path: '/equipes'
+      fullPath: '/equipes'
+      preLoaderRoute: typeof EquipesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formation': {
+      id: '/formation'
+      path: '/formation'
+      fullPath: '/formation'
+      preLoaderRoute: typeof FormationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/medias': {
+      id: '/medias'
+      path: '/medias'
+      fullPath: '/medias'
+      preLoaderRoute: typeof MediasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partenaires': {
+      id: '/partenaires'
+      path: '/partenaires'
+      fullPath: '/partenaires'
+      preLoaderRoute: typeof PartenairesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -112,7 +283,15 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ActualitesRoute: ActualitesRoute,
   AuthRoute: AuthRoute,
+  CalendrierRoute: CalendrierRoute,
+  ClubRoute: ClubRoute,
+  ContactRoute: ContactRoute,
+  EquipesRoute: EquipesRoute,
+  FormationRoute: FormationRoute,
+  MediasRoute: MediasRoute,
+  PartenairesRoute: PartenairesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
