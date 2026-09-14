@@ -25,6 +25,16 @@ import {
   Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  reglagesParDefaut,
+  useActualites,
+  useClassement,
+  useGalerie,
+  useMatchs,
+  useReglages,
+  formatDateFr,
+  formatHeureFr,
+} from "@/lib/site-content";
 import logoAsset from "@/assets/siroco-logo.png.asset.json";
 import heroMatch from "@/assets/hero-match.jpg";
 import newsAcademy from "@/assets/news-academy.jpg";
@@ -80,6 +90,37 @@ function TitreSection({ children }: { children: React.ReactNode }) {
 
 function Accueil() {
   const [menuOuvert, setMenuOuvert] = useState(false);
+  const { data: reglages = reglagesParDefaut } = useReglages();
+  const { data: actualitesDb } = useActualites();
+  const { data: matchsDb } = useMatchs();
+  const { data: classementDb } = useClassement();
+  const { data: galerieDb } = useGalerie();
+
+  const imagesDefaut = [newsAcademy, newsTeam, newsSupporters];
+  const listeActualites = (actualitesDb ?? []).length
+    ? (actualitesDb ?? []).slice(0, 3).map((actu, index) => ({
+        image: actu.image_url || imagesDefaut[index % imagesDefaut.length]!,
+        date: new Date(actu.published_on).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" }),
+        titre: actu.title,
+        texte: actu.excerpt,
+      }))
+    : actualites;
+
+  const maintenant = Date.now();
+  const prochainMatch =
+    (matchsDb ?? []).find((match) => new Date(match.kickoff).getTime() >= maintenant) ?? (matchsDb ?? [])[0];
+
+  const listeClassement = (classementDb ?? []).length
+    ? (classementDb ?? []).map((ligne) => [String(ligne.position), ligne.team, String(ligne.points), String(ligne.played), ligne.goal_diff])
+    : classement;
+
+  const listeGalerie = (galerieDb ?? []).filter((photo) => photo.image_url).length
+    ? (galerieDb ?? []).filter((photo) => photo.image_url).map((photo) => photo.image_url)
+    : galerie;
+
+  const [heroLigne1, ...heroReste] = (reglages["hero_title"] ?? "Siroco Abymes").split(" ");
+  const heroLigne2 = heroReste.join(" ");
+
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
