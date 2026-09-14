@@ -208,13 +208,13 @@ function Accueil() {
               <img src={newsTeam} alt="Les joueurs du Siroco réunis" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/45 to-foreground/70" />
               <div className="relative px-8 py-12">
-                <p className="font-hand -rotate-3 text-5xl leading-[0.9] drop-shadow-lg sm:text-6xl">Ensemble,<br />toujours plus loin !</p>
+                <p className="font-hand -rotate-3 text-5xl leading-[0.9] drop-shadow-lg sm:text-6xl">{reglages["banner_text"]}</p>
                 <div className="mt-4 h-1.5 w-64 -skew-x-12 rounded-full bg-primary" />
               </div>
             </div>
             <div className="relative flex items-center gap-8 bg-[color-mix(in_oklab,var(--foreground)_92%,black)] px-8 py-10">
               <div className="grid gap-5">
-                {[[Users,"200+","Licenciés"],[Trophy,"46","Années d’histoire"],[Heart,"1","Grande famille"]].map(([Icon,valeur,label]) => { const StatIcon = Icon as typeof Users; return (
+                {[[Users,reglages["stat_members"],reglages["stat_members_label"]],[Trophy,reglages["stat_years"],reglages["stat_years_label"]],[Heart,reglages["stat_family"],reglages["stat_family_label"]]].map(([Icon,valeur,label]) => { const StatIcon = Icon as typeof Users; return (
                   <div key={String(label)} className="flex items-center gap-3">
                     <StatIcon className="h-7 w-7 shrink-0 text-primary" />
                     <div><strong className="font-impact text-3xl leading-none">{String(valeur)}</strong><span className="block text-[10px] opacity-80">{String(label)}</span></div>
