@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ActualitesRouteImport } from './routes/actualites'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CalendrierRouteImport } from './routes/calendrier'
 import { Route as ClubRouteImport } from './routes/club'
 import { Route as EquipesRouteImport } from './routes/equipes'
 import { Route as FormationRouteImport } from './routes/formation'
@@ -35,6 +36,11 @@ const ActualitesRoute = ActualitesRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendrierRoute = CalendrierRouteImport.update({
+  id: '/calendrier',
+  path: '/calendrier',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClubRoute = ClubRouteImport.update({
@@ -62,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
@@ -82,6 +90,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/actualites': typeof ActualitesRoute
   '/auth': typeof AuthRoute
+  '/calendrier': typeof CalendrierRoute
   '/club': typeof ClubRoute
   '/equipes': typeof EquipesRoute
   '/formation': typeof FormationRoute
@@ -93,6 +102,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actualites'
     | '/auth'
+    | '/calendrier'
     | '/club'
     | '/equipes'
     | '/formation'
@@ -102,6 +112,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actualites'
     | '/auth'
+    | '/calendrier'
     | '/club'
     | '/equipes'
     | '/formation'
@@ -112,6 +123,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/actualites'
     | '/auth'
+    | '/calendrier'
     | '/club'
     | '/equipes'
     | '/formation'
@@ -123,6 +135,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ActualitesRoute: typeof ActualitesRoute
   AuthRoute: typeof AuthRoute
+  CalendrierRoute: typeof CalendrierRoute
   ClubRoute: typeof ClubRoute
   EquipesRoute: typeof EquipesRoute
   FormationRoute: typeof FormationRoute
@@ -156,6 +169,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendrier': {
+      id: '/calendrier'
+      path: '/calendrier'
+      fullPath: '/calendrier'
+      preLoaderRoute: typeof CalendrierRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/club': {
@@ -205,6 +225,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ActualitesRoute: ActualitesRoute,
   AuthRoute: AuthRoute,
+  CalendrierRoute: CalendrierRoute,
   ClubRoute: ClubRoute,
   EquipesRoute: EquipesRoute,
   FormationRoute: FormationRoute,
