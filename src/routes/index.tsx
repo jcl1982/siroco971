@@ -82,11 +82,11 @@ function Accueil() {
   const [menuOuvert, setMenuOuvert] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <div className="bg-foreground text-primary-foreground">
         <div className="mx-auto flex h-9 max-w-[1440px] items-center justify-between px-5 text-[10px]">
           <div className="flex items-center gap-5"><span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" />Les Abymes, Guadeloupe</span><span className="hidden border-l border-primary-foreground/30 pl-5 sm:block">Plus qu’un club, une famille</span></div>
-          <div className="flex h-full items-center gap-4"><Facebook className="h-3.5 w-3.5" /><Instagram className="h-3.5 w-3.5" /><Youtube className="h-4 w-4" /><Search className="h-3.5 w-3.5" /><a href="#contact" className="flex h-full items-center gap-2 bg-primary px-4 font-bold uppercase"><UserRound className="h-3.5 w-3.5" />Espace membre</a></div>
+          <div className="flex h-full items-center gap-3"><Facebook className="hidden h-3.5 w-3.5 sm:block" /><Instagram className="hidden h-3.5 w-3.5 sm:block" /><Youtube className="hidden h-4 w-4 sm:block" /><Search className="h-3.5 w-3.5" /><a href="#contact" className="flex h-full items-center gap-2 bg-primary px-3 font-bold uppercase sm:px-4"><UserRound className="h-3.5 w-3.5" />Espace membre</a></div>
         </div>
       </div>
 
