@@ -127,7 +127,35 @@ function Accueil() {
 
         <section id="calendrier" className="relative border-b border-border py-7 lg:py-8">
           <div className="mx-auto grid max-w-[1440px] gap-7 px-5 lg:grid-cols-[1fr_1.02fr_0.88fr]">
-            <article><TitreSection>Prochain match</TitreSection><div className="mt-4 bg-foreground p-6 text-primary-foreground shadow-lg"><p className="text-center text-[10px] font-bold uppercase tracking-wide text-primary">Championnat régional — Journée 3</p><div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center"><div><div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-background p-1"><img src={logoAsset.url} alt="Siroco Abymes" className="h-full w-full object-contain" /></div><p className="mt-2 text-[11px] font-black uppercase">Siroco<br />Abymes</p></div><span className="font-impact text-3xl font-bold">VS</span><div><div className="mx-auto grid h-20 w-20 place-items-center border-2 border-primary bg-primary-deep font-impact text-xl font-bold">ASR</div><p className="mt-2 text-[11px] font-black uppercase">A.S. Rivière-<br />Salée</p></div></div><div className="space-y-2 border-t border-primary-foreground/15 pt-4 text-xs"><p className="flex items-center gap-3"><CalendarDays className="h-4 w-4" />Samedi 20 septembre 2025</p><p className="flex items-center gap-3"><Clock3 className="h-4 w-4" />16h00</p><p className="flex items-center gap-3"><MapPin className="h-4 w-4" />Stade municipal des Abymes</p></div><Button asChild className="btn-3d mt-5 h-11 w-full rounded-full uppercase"><a href="#calendrier">Voir le calendrier <ArrowRight /></a></Button></div></article>
+            <article>
+              <div className="relative overflow-hidden rounded-2xl bg-[linear-gradient(150deg,color-mix(in_oklab,var(--primary-deep)_88%,black)_0%,color-mix(in_oklab,var(--primary)_42%,black)_55%,color-mix(in_oklab,var(--primary-deep)_92%,black)_100%)] p-6 text-primary-foreground shadow-[0_18px_40px_-18px_rgba(0,0,0,0.55)]">
+                <div className="crescent-bg pointer-events-none absolute inset-0 opacity-[0.07]" />
+                <div className="relative">
+                  <div className="flex items-center gap-3 border-b border-primary-foreground/15 pb-4">
+                    <span className="h-7 w-1.5 rounded-sm bg-primary" />
+                    <h2 className="font-impact text-2xl font-bold uppercase tracking-tight">Prochain match</h2>
+                  </div>
+                  <p className="mt-5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-primary">Championnat régional — Journée 3</p>
+                  <div className="my-7 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
+                    <div>
+                      <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-background p-2 shadow-[0_8px_18px_-8px_rgba(0,0,0,0.6)]"><img src={logoAsset.url} alt="Siroco Abymes" className="h-full w-full object-contain" /></div>
+                      <p className="mt-3 text-xs font-black uppercase leading-tight">Siroco<br />Abymes</p>
+                    </div>
+                    <span className="font-impact text-3xl font-bold uppercase">VS</span>
+                    <div>
+                      <div className="mx-auto grid h-24 w-24 place-items-center rounded-[46%_46%_46%_46%/38%_38%_62%_62%] border-2 border-primary-foreground/80 bg-[linear-gradient(160deg,#c62828,#7f1414)] font-impact text-lg font-bold tracking-wide shadow-[0_8px_18px_-8px_rgba(0,0,0,0.6)]">ASR</div>
+                      <p className="mt-3 text-xs font-black uppercase leading-tight">A.S. Rivière-Salée</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3 border-t border-primary-foreground/15 pt-5 text-[13px]">
+                    <p className="flex items-center gap-3"><CalendarDays className="h-4 w-4 text-primary-foreground/80" />Samedi 20 septembre 2025</p>
+                    <p className="flex items-center gap-3"><Clock3 className="h-4 w-4 text-primary-foreground/80" />16h00</p>
+                    <p className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary-foreground/80" />Stade Municipal des Abymes</p>
+                  </div>
+                  <Button asChild className="btn-3d mt-6 h-12 w-full rounded-full text-xs font-black uppercase tracking-[0.14em]"><a href="#calendrier">Voir le calendrier <ArrowRight /></a></Button>
+                </div>
+              </div>
+            </article>
             <section id="actualites"><div className="flex items-center justify-between gap-3"><TitreSection>Dernières actualités</TitreSection><a href="#actualites" className="text-[9px] font-bold text-primary underline">Voir toutes les actualités →</a></div><div className="mt-4 space-y-3">{actualites.map((actu) => <article key={actu.titre} className="grid grid-cols-[132px_minmax(0,1fr)] gap-4 border-b border-border pb-3"><img src={actu.image} alt={actu.titre} loading="lazy" className="h-[88px] w-full rounded-md object-cover" /><div className="self-center"><p className="text-[9px] text-muted-foreground">{actu.date}</p><h3 className="font-impact text-[15px] font-bold leading-tight">{actu.titre}</h3><p className="mt-1 text-[11px] leading-tight text-muted-foreground">{actu.texte}</p></div></article>)}</div></section>
             <section><div className="flex items-center justify-between"><TitreSection>Classement</TitreSection><a href="#calendrier" className="text-[9px] font-bold text-primary underline">Voir le classement →</a></div><table className="mt-4 w-full text-left text-[11px]"><thead className="bg-muted uppercase"><tr><th className="p-2">#</th><th className="p-2">Équipe</th><th className="p-2 text-center">Pts</th><th className="p-2 text-center">J</th><th className="p-2 text-center">Diff</th></tr></thead><tbody>{classement.map((ligne,index) => <tr key={ligne[1]} className={index === 0 ? "bg-secondary font-black text-primary" : "border-b border-border"}>{ligne.map((cell,i) => <td key={`${cell}-${i}`} className={`p-2 ${i > 1 ? "text-center" : ""}`}>{cell}</td>)}</tr>)}</tbody></table><blockquote className="mt-7 flex gap-3 text-xs leading-relaxed text-muted-foreground"><span className="font-display text-5xl font-black leading-none text-primary">“</span><span>Le football est un jeu simple :<br />22 joueurs, un ballon, et tout un peuple<br />derrière son équipe.</span></blockquote></section>
           </div>
