@@ -97,7 +97,7 @@ function PageAuth() {
               <Input
                 id="mdp"
                 type="password"
-                required={mode !== "oubli"}
+                required
                 minLength={6}
                 value={motDePasse}
                 onChange={(e) => setMotDePasse(e.target.value)}
