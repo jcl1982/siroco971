@@ -117,7 +117,7 @@ function Accueil() {
                   <div><div className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-primary-foreground/20 bg-primary-deep"><Shield className="h-8 w-8 opacity-75" /></div><p className="mt-3 text-[10px] font-black uppercase">JS<br />Vieux-Habitants</p></div>
                 </div>
                 <div className="space-y-3 border-t border-primary-foreground/10 pt-5 text-xs"><p className="flex items-center gap-3"><CalendarDays className="text-accent" /> Samedi 20 septembre 2025</p><p className="flex items-center gap-3"><Clock3 className="text-accent" /> 17h00</p><p className="flex items-center gap-3"><MapPin className="text-accent" /> Stade municipal des Abymes</p></div>
-                <Button asChild className="mt-6 h-11 w-full rounded-sm uppercase"><a href="#matchs">Voir le calendrier <ArrowRight /></a></Button>
+                <Button asChild className="mt-6 h-11 w-full rounded-sm uppercase"><a href="#calendrier">Voir le calendrier <ArrowRight /></a></Button>
               </div>
             </article>
             <section id="actualites">
