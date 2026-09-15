@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Facebook, Instagram, MapPin, Menu, Search, UserRound, X, Youtube } from "lucide-react";
+import { Facebook, Instagram, MapPin, Menu, Search, X, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { reglagesParDefaut, useReglages } from "@/lib/site-content";
 import logoAsset from "@/assets/siroco-logo.png.asset.json";
@@ -42,7 +42,6 @@ export function SiteHeader() {
             <a href={reglages["social_instagram"] || "/contact"} target={reglages["social_instagram"] ? "_blank" : undefined} rel="noreferrer" aria-label="Instagram"><Instagram className="hidden h-3.5 w-3.5 sm:block" /></a>
             <a href={reglages["social_youtube"] || "/contact"} target={reglages["social_youtube"] ? "_blank" : undefined} rel="noreferrer" aria-label="YouTube"><Youtube className="hidden h-4 w-4 sm:block" /></a>
             <button type="button" aria-label="Rechercher" onClick={() => setRechercheOuverte((value) => !value)}><Search className="h-3.5 w-3.5" /></button>
-            <Link to="/auth" className="flex h-full items-center gap-2 bg-primary px-3 font-bold uppercase shadow-md sm:px-4"><UserRound className="h-3.5 w-3.5" />Espace membre</Link>
           </div>
         </div>
         {rechercheOuverte && (
