@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Facebook, Instagram, MapPin, Menu, Search, UserRound, X, Youtube } from "lucide-react";
+import { Facebook, Instagram, MapPin, Menu, Search, X, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { reglagesParDefaut, useReglages } from "@/lib/site-content";
 import logoAsset from "@/assets/siroco-logo.png.asset.json";
