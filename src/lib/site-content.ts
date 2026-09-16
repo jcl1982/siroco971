@@ -49,6 +49,38 @@ export type Photo = {
   sort_order: number;
 };
 
+export type Equipe = {
+  id: string;
+  name: string;
+  category: string;
+  squad: string;
+  coach: string;
+  schedule: string;
+  goal: string;
+  image_url: string;
+  sort_order: number;
+};
+
+export type Joueur = {
+  id: string;
+  name: string;
+  position: string;
+  number: string;
+  team: string;
+  image_url: string;
+  sort_order: number;
+};
+
+export type Partenaire = {
+  id: string;
+  name: string;
+  tier: string;
+  website: string;
+  logo_url: string;
+  description: string;
+  sort_order: number;
+};
+
 export const reglagesParDefaut: Reglages = {
   club_name: "Siroco",
   club_city: "Abymes",
@@ -74,6 +106,14 @@ export const reglagesParDefaut: Reglages = {
   social_facebook: "",
   social_instagram: "",
   social_youtube: "",
+  page_club_intro:
+    "Depuis 1979, le Siroco fait vivre le football aux Abymes : une histoire de quartier, de familles et de générations.",
+  page_equipes_intro:
+    "Huit catégories, un seul maillot. Chaque semaine, plus de 200 licenciés s’entraînent au Stade Municipal des Abymes.",
+  page_formation_intro:
+    "Former des joueurs et des citoyens : l’école de football du Siroco accueille les enfants dès 5 ans.",
+  page_partenaires_intro:
+    "Le Siroco avance grâce à celles et ceux qui le soutiennent. Associez votre image à un club formateur, ancré dans les Abymes.",
   quote_text:
     "Le football est un jeu simple : 22 joueurs, un ballon, et tout un peuple derrière son équipe.",
 };
@@ -104,6 +144,10 @@ export const CLES_REGLAGES: { key: string; label: string; groupe: string; multil
   { key: "social_youtube", label: "Lien YouTube", groupe: "Réseaux & pied de page" },
   { key: "footer_signature", label: "Signature du pied de page", groupe: "Réseaux & pied de page" },
   { key: "newsletter_text", label: "Texte newsletter", groupe: "Réseaux & pied de page" },
+  { key: "page_club_intro", label: "Introduction page Club", groupe: "Pages du site", multiligne: true },
+  { key: "page_equipes_intro", label: "Introduction page Équipes", groupe: "Pages du site", multiligne: true },
+  { key: "page_formation_intro", label: "Introduction page Formation", groupe: "Pages du site", multiligne: true },
+  { key: "page_partenaires_intro", label: "Introduction page Partenaires", groupe: "Pages du site", multiligne: true },
 ];
 
 export function useReglages() {
@@ -222,4 +266,37 @@ export function resultatSiroco(match: Match): "victoire" | "nul" | "defaite" | n
   if (pour > contre) return "victoire";
   if (pour === contre) return "nul";
   return "defaite";
+}
+
+export function useEquipes() {
+  return useQuery({
+    queryKey: ["teams"],
+    queryFn: async (): Promise<Equipe[]> => {
+      const { data, error } = await supabase.from("teams").select("*").order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as Equipe[];
+    },
+  });
+}
+
+export function useJoueurs() {
+  return useQuery({
+    queryKey: ["players"],
+    queryFn: async (): Promise<Joueur[]> => {
+      const { data, error } = await supabase.from("players").select("*").order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as Joueur[];
+    },
+  });
+}
+
+export function usePartenaires() {
+  return useQuery({
+    queryKey: ["partners"],
+    queryFn: async (): Promise<Partenaire[]> => {
+      const { data, error } = await supabase.from("partners").select("*").order("sort_order", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as Partenaire[];
+    },
+  });
 }

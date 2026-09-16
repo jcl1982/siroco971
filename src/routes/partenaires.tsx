@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Handshake, Megaphone, Ticket, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
+import { usePartenaires, useReglages, reglagesParDefaut } from "@/lib/site-content";
+import { ImageSite } from "@/lib/image-stockage";
 import newsSupporters from "@/assets/news-supporters.jpg";
 
 export const Route = createFileRoute("/partenaires")({
@@ -31,9 +33,34 @@ const raisons = [
 ];
 
 function PagePartenaires() {
+  const { data: reglages } = useReglages();
+  const { data: partenaires } = usePartenaires();
+  const intro = reglages?.["page_partenaires_intro"] ?? reglagesParDefaut["page_partenaires_intro"] ?? "";
+
   return (
     <SiteShell>
-      <EnTetePage titre="Partenaires" sousTitre="Le Siroco avance grâce à celles et ceux qui le soutiennent. Associez votre image à un club formateur, ancré dans les Abymes." image={newsSupporters} />
+      <EnTetePage titre="Partenaires" sousTitre={intro} image={newsSupporters} />
+
+      {(partenaires ?? []).length > 0 && (
+        <section className="mx-auto max-w-[1440px] px-5 pt-14">
+          <TitreSection>Ils soutiennent le club</TitreSection>
+          <div className="mt-6 grid gap-4 grid-cols-2 md:grid-cols-4">
+            {(partenaires ?? []).map((partenaire) => (
+              <article key={partenaire.id} className="rounded-xl border border-border bg-background p-4 text-center">
+                {partenaire.logo_url
+                  ? <ImageSite src={partenaire.logo_url} alt={partenaire.name} className="mx-auto h-20 w-full rounded-md object-contain" />
+                  : <Handshake className="mx-auto h-8 w-8 text-primary" />}
+                <strong className="mt-3 block font-impact text-base uppercase leading-tight">{partenaire.name}</strong>
+                {partenaire.tier && <span className="text-[10px] uppercase tracking-wide text-primary">{partenaire.tier}</span>}
+                {partenaire.description && <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">{partenaire.description}</p>}
+                {partenaire.website && (
+                  <a href={partenaire.website} target="_blank" rel="noreferrer" className="mt-2 inline-block text-[11px] font-bold uppercase text-primary underline">Site internet</a>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto max-w-[1440px] px-5 py-14">
         <TitreSection>Pourquoi nous soutenir</TitreSection>

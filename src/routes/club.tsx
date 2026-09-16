@@ -55,9 +55,10 @@ const pratique = [
 
 function PageClub() {
   const { data: reglages = reglagesParDefaut } = useReglages();
+  const intro = reglages["page_club_intro"] ?? reglagesParDefaut["page_club_intro"] ?? "";
   return (
     <SiteShell>
-      <EnTetePage titre="Le club" sousTitre="Depuis 1979, le Siroco des Abymes fait vivre le football guadeloupéen avec la même ambition : former, rassembler et gagner ensemble." image={newsTeam} />
+      <EnTetePage titre="Le club" sousTitre={intro} image={newsTeam} />
 
       <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 lg:grid-cols-[1.2fr_1fr]">
         <div>

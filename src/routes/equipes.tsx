@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shirt } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
+import { useEquipes, useJoueurs, useReglages, reglagesParDefaut } from "@/lib/site-content";
+import { ImageSite } from "@/lib/image-stockage";
 import heroMatch from "@/assets/hero-match.jpg";
 
 export const Route = createFileRoute("/equipes")({
@@ -36,15 +38,25 @@ const encadrement = [
 ];
 
 function PageEquipes() {
+  const { data: reglages } = useReglages();
+  const { data: equipesBase } = useEquipes();
+  const { data: joueurs } = useJoueurs();
+  const liste = (equipesBase && equipesBase.length > 0)
+    ? equipesBase.map((e) => ({ nom: e.name, categorie: e.category, effectif: e.squad, coach: e.coach, horaires: e.schedule, objectif: e.goal, image: e.image_url }))
+    : equipes.map((e) => ({ ...e, image: "" }));
+  const intro = reglages?.["page_equipes_intro"] ?? reglagesParDefaut["page_equipes_intro"] ?? "";
+
   return (
     <SiteShell>
-      <EnTetePage titre="Nos équipes" sousTitre="Huit catégories, un seul maillot. Chaque semaine, plus de 200 licenciés s’entraînent au Stade Municipal des Abymes." image={heroMatch} />
+      <EnTetePage titre="Nos équipes" sousTitre={intro} image={heroMatch} />
       <section className="mx-auto max-w-[1440px] px-5 py-14">
         <TitreSection>Toutes les catégories</TitreSection>
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {equipes.map((equipe) => (
+          {liste.map((equipe) => (
             <article key={equipe.nom} className="rounded-xl border border-border bg-secondary/40 p-5">
-              <Shirt className="h-7 w-7 text-primary" />
+              {equipe.image
+                ? <ImageSite src={equipe.image} alt={`Équipe ${equipe.nom}`} className="mb-3 h-32 w-full rounded-md object-cover" />
+                : <Shirt className="h-7 w-7 text-primary" />}
               <h3 className="mt-3 font-impact text-xl uppercase">{equipe.nom}</h3>
               <p className="text-[11px] font-bold uppercase tracking-wide text-primary">{equipe.categorie}</p>
               <p className="mt-3 text-xs text-muted-foreground">Effectif : {equipe.effectif}</p>
@@ -54,6 +66,24 @@ function PageEquipes() {
             </article>
           ))}
         </div>
+
+        {(joueurs ?? []).length > 0 && (
+          <div className="mt-14">
+            <TitreSection>L’effectif</TitreSection>
+            <div className="mt-6 grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+              {(joueurs ?? []).map((joueur) => (
+                <article key={joueur.id} className="rounded-xl border border-border bg-background p-3 text-center">
+                  {joueur.image_url
+                    ? <ImageSite src={joueur.image_url} alt={joueur.name} className="mb-2 h-32 w-full rounded-md object-cover" />
+                    : <div className="mb-2 flex h-32 items-center justify-center rounded-md bg-secondary font-impact text-3xl text-primary">{joueur.number || "•"}</div>}
+                  <strong className="block font-impact text-sm uppercase leading-tight">{joueur.name}</strong>
+                  <span className="text-[11px] text-muted-foreground">{joueur.position}</span>
+                  {joueur.team && <span className="block text-[10px] uppercase tracking-wide text-primary">{joueur.team}</span>}
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           {encadrement.map(([titre, texte]) => (

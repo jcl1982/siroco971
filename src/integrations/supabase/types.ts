@@ -188,6 +188,78 @@ export type Database = {
         }
         Relationships: []
       }
+      partners: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          logo_url: string
+          name: string
+          sort_order: number
+          tier: string
+          updated_at: string
+          website: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          logo_url?: string
+          name: string
+          sort_order?: number
+          tier?: string
+          updated_at?: string
+          website?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          logo_url?: string
+          name?: string
+          sort_order?: number
+          tier?: string
+          updated_at?: string
+          website?: string
+        }
+        Relationships: []
+      }
+      players: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          name: string
+          number: string
+          position: string
+          sort_order: number
+          team: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          name: string
+          number?: string
+          position?: string
+          sort_order?: number
+          team?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          name?: string
+          number?: string
+          position?: string
+          sort_order?: number
+          team?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
@@ -235,6 +307,48 @@ export type Database = {
           points?: number
           position?: number
           team?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      teams: {
+        Row: {
+          category: string
+          coach: string
+          created_at: string
+          goal: string
+          id: string
+          image_url: string
+          name: string
+          schedule: string
+          sort_order: number
+          squad: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          coach?: string
+          created_at?: string
+          goal?: string
+          id?: string
+          image_url?: string
+          name: string
+          schedule?: string
+          sort_order?: number
+          squad?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          coach?: string
+          created_at?: string
+          goal?: string
+          id?: string
+          image_url?: string
+          name?: string
+          schedule?: string
+          sort_order?: number
+          squad?: string
           updated_at?: string
         }
         Relationships: []
