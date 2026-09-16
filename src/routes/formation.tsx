@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
+import { useReglages, reglagesParDefaut } from "@/lib/site-content";
 import newsAcademy from "@/assets/news-academy.jpg";
 
 export const Route = createFileRoute("/formation")({
@@ -39,9 +40,11 @@ const rendezvous = [
 ];
 
 function PageFormation() {
+  const { data: reglages } = useReglages();
+  const intro = reglages?.["page_formation_intro"] ?? reglagesParDefaut["page_formation_intro"] ?? "";
   return (
     <SiteShell>
-      <EnTetePage titre="Formation" sousTitre="Préparer demain : l’école de football du Siroco accompagne chaque jeune, du premier ballon jusqu’à l’équipe première." image={newsAcademy} />
+      <EnTetePage titre="Formation" sousTitre={intro} image={newsAcademy} />
 
       <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 lg:grid-cols-[1fr_1fr]">
         <div>

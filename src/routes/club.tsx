@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
+import { useReglages, reglagesParDefaut } from "@/lib/site-content";
 import { reglagesParDefaut, useReglages } from "@/lib/site-content";
 import newsTeam from "@/assets/news-team.jpg";
 import newsSupporters from "@/assets/news-supporters.jpg";
@@ -54,10 +55,12 @@ const pratique = [
 ];
 
 function PageClub() {
+  const { data: reglages } = useReglages();
+  const intro = reglages?.["page_club_intro"] ?? reglagesParDefaut["page_club_intro"] ?? "";
   const { data: reglages = reglagesParDefaut } = useReglages();
   return (
     <SiteShell>
-      <EnTetePage titre="Le club" sousTitre="Depuis 1979, le Siroco des Abymes fait vivre le football guadeloupéen avec la même ambition : former, rassembler et gagner ensemble." image={newsTeam} />
+      <EnTetePage titre="Le club" sousTitre={intro} image={newsTeam} />
 
       <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 lg:grid-cols-[1.2fr_1fr]">
         <div>
