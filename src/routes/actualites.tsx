@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
 import { useActualites } from "@/lib/site-content";
+import { ImageSite } from "@/lib/image-stockage";
 import newsAcademy from "@/assets/news-academy.jpg";
 import newsSupporters from "@/assets/news-supporters.jpg";
 import newsTeam from "@/assets/news-team.jpg";
@@ -62,7 +63,7 @@ function PageActualites() {
           <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {liste.map((actu, index) => (
               <article key={actu.id} className="overflow-hidden rounded-xl border border-border bg-background">
-                <img src={actu.image_url || imagesDefaut[index % imagesDefaut.length]!} alt={actu.title} loading="lazy" className="aspect-[16/10] w-full object-cover" />
+                <ImageSite src={actu.image_url || imagesDefaut[index % imagesDefaut.length]!} alt={actu.title} loading="lazy" className="aspect-[16/10] w-full object-cover" />
                 <div className="p-5">
                   <p className="text-[10px] font-bold uppercase tracking-wide text-primary">{actu.category} · {new Date(actu.published_on).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</p>
                   <h3 className="mt-2 font-impact text-xl uppercase leading-tight">{actu.title}</h3>

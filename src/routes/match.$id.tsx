@@ -64,7 +64,7 @@ function PageMatch() {
   return (
     <SiteShell>
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
-        <img src={image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-70" />
+        <ImageSite src={image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--foreground)_15%,color-mix(in_oklab,var(--foreground)_55%,transparent)_100%)]" />
         <div className="relative mx-auto max-w-[1440px] px-6 py-14 lg:px-12">
           <Link to="/calendrier" className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.3em] text-primary-foreground/80 hover:text-primary-foreground">

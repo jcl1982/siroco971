@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Film, X } from "lucide-react";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
 import { formatDateFr, useGalerie, useMatchs } from "@/lib/site-content";
+import { ImageSite } from "@/lib/image-stockage";
 import heroMatch from "@/assets/hero-match.jpg";
 import newsAcademy from "@/assets/news-academy.jpg";
 import newsSupporters from "@/assets/news-supporters.jpg";
@@ -55,7 +56,7 @@ function PageMedias() {
             {liste.map((image, index) => (
               <figure key={`${image.url}-${index}`}>
                 <button type="button" onClick={() => setAgrandie(image.url)} className="block w-full overflow-hidden rounded-xl">
-                  <img src={image.url} alt={image.legende || `Galerie Siroco ${index + 1}`} loading="lazy" className="aspect-[1.45/1] h-full w-full object-cover transition-transform hover:scale-105" />
+                  <ImageSite src={image.url} alt={image.legende || `Galerie Siroco ${index + 1}`} loading="lazy" className="aspect-[1.45/1] h-full w-full object-cover transition-transform hover:scale-105" />
                 </button>
                 {image.legende && <figcaption className="mt-2 text-[11px] text-muted-foreground">{image.legende}</figcaption>}
               </figure>
@@ -82,7 +83,7 @@ function PageMedias() {
       {agrandie && (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-foreground/90 p-6" role="dialog" aria-modal="true" onClick={() => setAgrandie(null)}>
           <button type="button" aria-label="Fermer" className="absolute right-6 top-6 text-primary-foreground" onClick={() => setAgrandie(null)}><X className="h-7 w-7" /></button>
-          <img src={agrandie} alt="Photo agrandie" className="max-h-[80vh] w-auto rounded-xl object-contain" />
+          <ImageSite src={agrandie} alt="Photo agrandie" className="max-h-[80vh] w-auto rounded-xl object-contain" />
         </div>
       )}
     </SiteShell>
