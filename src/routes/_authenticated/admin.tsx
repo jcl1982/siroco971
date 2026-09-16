@@ -18,6 +18,7 @@ import {
   useMatchs,
   useReglages,
 } from "@/lib/site-content";
+import { ImageSite } from "@/lib/image-stockage";
 import logoAsset from "@/assets/siroco-logo.png.asset.json";
 
 /** Téléverse un fichier dans le bucket site-images et renvoie l'URL publique. */
@@ -63,7 +64,7 @@ function ChampImage({ label, value, onChange }: { label: string; value: string; 
         </Button>
         <input ref={ref} type="file" accept="image/*" className="hidden" onChange={surFichier} />
       </div>
-      {value && <img src={value} alt="" className="h-24 w-full rounded-md object-cover" />}
+      {value && <ImageSite src={value} alt="" className="h-24 w-full rounded-md object-cover" />}
     </div>
   );
 }
