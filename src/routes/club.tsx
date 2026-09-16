@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnTetePage, SiteShell, TitreSection } from "@/components/site-shell";
-import { useReglages, reglagesParDefaut } from "@/lib/site-content";
 import { reglagesParDefaut, useReglages } from "@/lib/site-content";
 import newsTeam from "@/assets/news-team.jpg";
 import newsSupporters from "@/assets/news-supporters.jpg";
@@ -55,9 +54,8 @@ const pratique = [
 ];
 
 function PageClub() {
-  const { data: reglages } = useReglages();
-  const intro = reglages?.["page_club_intro"] ?? reglagesParDefaut["page_club_intro"] ?? "";
   const { data: reglages = reglagesParDefaut } = useReglages();
+  const intro = reglages["page_club_intro"] ?? reglagesParDefaut["page_club_intro"] ?? "";
   return (
     <SiteShell>
       <EnTetePage titre="Le club" sousTitre={intro} image={newsTeam} />
