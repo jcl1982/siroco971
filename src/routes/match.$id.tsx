@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, CalendarDays, Clock3, Film, MapPin, Users, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, TitreSection } from "@/components/site-shell";
+import { ImageSite } from "@/lib/image-stockage";
 import {
   formatDateFr,
   formatHeureFr,
