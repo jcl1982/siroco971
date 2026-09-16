@@ -49,6 +49,38 @@ export type Photo = {
   sort_order: number;
 };
 
+export type Equipe = {
+  id: string;
+  name: string;
+  category: string;
+  squad: string;
+  coach: string;
+  schedule: string;
+  goal: string;
+  image_url: string;
+  sort_order: number;
+};
+
+export type Joueur = {
+  id: string;
+  name: string;
+  position: string;
+  number: string;
+  team: string;
+  image_url: string;
+  sort_order: number;
+};
+
+export type Partenaire = {
+  id: string;
+  name: string;
+  tier: string;
+  website: string;
+  logo_url: string;
+  description: string;
+  sort_order: number;
+};
+
 export const reglagesParDefaut: Reglages = {
   club_name: "Siroco",
   club_city: "Abymes",
